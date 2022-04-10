@@ -1,0 +1,32 @@
+.botton {
+  background: #4e94c8;
+  color: white;
+  text-decoration: none;
+  border: 2px sollid transparent;
+  font-weight: bold;
+  padding: 13px 30px;
+  border-radius: 30px;
+  transition: 0.4s;
+  border: 2px solid #4e94c8;
+  outline: 0 solid transparent;
+}
+
+.botton:hover {
+  background: transparent;
+  border: 2px solid #4e94c8;
+  cursor: pointer;
+}
+
+.botton-color:hover {
+  color: #4e94c8;
+}
+
+/* APP BODY*/
+.app-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding-top: 80px;
+}

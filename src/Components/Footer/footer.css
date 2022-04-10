@@ -1,0 +1,21 @@
+/* FOOTER */
+.footer {
+  background-color: rgb(13, 0, 58);
+  color: #ffffff;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+}
+.footer > .body {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+.body iframe {
+  border-radius: 10px;
+}
+.footer > .stamp {
+  text-align: center;
+  padding: 10px;
+  font-size: larger;
+}

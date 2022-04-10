@@ -1,0 +1,69 @@
+.CustomCard {
+  padding: 20px 20px 0px 20px;
+  border-radius: 30px !important;
+  margin: 0px 15px;
+}
+.CustomCard .MuiCardHeader-root {
+  text-align: center;
+  text-transform: capitalize;
+}
+.CustomCard .css-1qvr50w-MuiTypography-root {
+  font-size: xx-large !important;
+}
+.CustomCard .MuiCardMedia-img {
+  object-fit: cover;
+  border-radius: 30px !important;
+}
+
+#boutique h1 {
+  text-align: center;
+  font-size: 4rem;
+  margin: 40px auto;
+}
+#boutique .prod-slide {
+  margin: auto;
+  width: 100vw;
+  max-width: 1200px;
+}
+.prod-slide .splide__arrow {
+  background-color: transparent !important;
+}
+/**Icon Hover Effect 4**/
+.hover-effect4 {
+  margin: 0;
+}
+.hover-effect4 .splide__track {
+  padding: 0px 30px !important;
+}
+
+.hover-effect4 ul li {
+  display: inline-block;
+  margin: 70px auto;
+}
+.hover-effect4 ul li div {
+  font-size: 40px;
+  line-height: 100px;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.hover-effect4 ul li.is-visible:hover > div {
+  -moz-transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+  -o-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
+}
+
+@media (max-width: 1000px) {
+  .hover-effect4 .splide__track {
+    padding: 0px 0px !important;
+  }
+  .CustomCard {
+    padding: 10px 10px 0px 10px;
+    border-radius: 20px !important;
+    margin: 0px 10px;
+  }
+}
