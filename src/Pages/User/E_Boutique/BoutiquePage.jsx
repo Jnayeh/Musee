@@ -74,8 +74,10 @@ function BoutiquePage() {
   const responsiveResize = () => {
     if (window.innerWidth >= 800) {
       setProdNumber(3);
-    } else {
+    } else if (window.innerWidth >= 600) {
       setProdNumber(2);
+    } else {
+      setProdNumber(1);
     }
   };
   //Re-render once the component loads
@@ -98,7 +100,7 @@ function BoutiquePage() {
             drag: "free",
             gap: "25px",
           }}
-          className="hover-effect4"
+          className="hover-effect"
         >
           {products.map((product) => {
             return (
