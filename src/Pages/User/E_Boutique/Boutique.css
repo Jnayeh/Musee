@@ -22,7 +22,7 @@
 }
 #boutique .prod-slide {
   margin: auto;
-  width: 100vw;
+  width: 100%;
   max-width: 1200px;
 }
 .prod-slide .splide__arrow {
@@ -37,7 +37,6 @@
 }
 
 .hover-effect ul li {
-  display: inline-block;
   margin: 70px auto;
 }
 .hover-effect ul li div {
@@ -64,6 +63,13 @@
   .CustomCard {
     padding: 10px 10px 0px 10px;
     border-radius: 20px !important;
-    margin: 0px 10px;
+    margin: 0px 5px;
+  }
+  .hover-effect ul li.is-visible:hover > div {
+    -moz-transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
   }
 }

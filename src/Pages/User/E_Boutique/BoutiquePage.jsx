@@ -72,12 +72,10 @@ function BoutiquePage() {
   ];
   const [prodNumber, setProdNumber] = React.useState(3);
   const responsiveResize = () => {
-    if (window.innerWidth >= 800) {
+    if (window.innerWidth >= 760) {
       setProdNumber(3);
-    } else if (window.innerWidth >= 600) {
-      setProdNumber(2);
     } else {
-      setProdNumber(1);
+      setProdNumber(2);
     }
   };
   //Re-render once the component loads
@@ -99,6 +97,8 @@ function BoutiquePage() {
             pagination: false,
             drag: "free",
             gap: "25px",
+            autoplay: true,
+            interval: 5000,
           }}
           className="hover-effect"
         >
