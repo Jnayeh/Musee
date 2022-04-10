@@ -1,4 +1,4 @@
-import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
+import { Splide, SplideSlide } from "@splidejs/react-splide";
 import React from "react";
 import "@splidejs/react-splide/css";
 import "./Intro.css";
@@ -12,18 +12,7 @@ function Intro() {
         <p>La Musée de Monnaie La Musée de Monnaie.</p>
         <p>Every single day !</p>
       </div>
-      {/* <Splide hasTrack={false} aria-label="...">
-        <SplideTrack>
-          <SplideSlide>
-            <div className="intro-img img1"></div>
-          </SplideSlide>
-          <SplideSlide>
-            <div className="intro-img img2"></div>
-          </SplideSlide>
-        </SplideTrack>
 
-        <div className="splide__arrows" />
-      </Splide> */}
       <Splide
         options={{
           rewind: true,

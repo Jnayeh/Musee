@@ -3,7 +3,7 @@ import React from "react";
 const BilletContext = React.createContext();
 
 export function BilletProvider({ children }) {
-  const [historiqueBilletes, setHistoriqueBilletes] = React.useState([
+  const [historiqueBilletes /* setHistoriqueBilletes */] = React.useState([
     {
       id: 1,
       date: "1920...",

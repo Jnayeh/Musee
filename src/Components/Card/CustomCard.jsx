@@ -33,7 +33,7 @@ export default function CustomCard(props) {
   const { item, children, classes, ...other } = props;
 
   return (
-    <Card sx={{ maxWidth: 345 }} elevation={5} className={classes}>
+    <Card sx={{ maxWidth: 345 }} elevation={5} className={classes} {...other}>
       <CardMedia
         component="img"
         height="194"

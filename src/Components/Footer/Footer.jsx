@@ -23,11 +23,4 @@ const Footer = (props) => {
   );
 };
 
-// Dynamic CSS
-const hStyle = {
-  backgroundColor: "rgb(87, 87, 87)",
-  width: "100%",
-  bottom: "0",
-  color: "#FFFFFF",
-};
 export default Footer;

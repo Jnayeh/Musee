@@ -3,7 +3,7 @@ import React from "react";
 const MonnaieContext = React.createContext();
 
 export function MonnaieProvider({ children }) {
-  const [historiqueMonnaies, setHistoriqueMonnaies] = React.useState([
+  const [historiqueMonnaies /* setHistoriqueMonnaies */] = React.useState([
     {
       id: 1,
       date: "400 av .. 146 ap",
