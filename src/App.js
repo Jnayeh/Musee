@@ -47,6 +47,8 @@ function App() {
     <>
       {/* Menu will be shown in all the routes */}
       <Menu />
+
+      {/* Website routes */}
       <div className="app-container" id="app-container">
         <Routes>
           <Route path="/" element={<HomePage />} />
