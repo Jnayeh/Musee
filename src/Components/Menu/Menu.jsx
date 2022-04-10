@@ -32,7 +32,7 @@ function Menu() {
           </ul>
         </div>
         <div className="nav-user">
-          <button className="auth-btn">
+          <button className="auth-btn login-btn">
             <span>Connexion</span>
             <i className="ico">
               <LoginRounded />

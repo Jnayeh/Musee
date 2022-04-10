@@ -86,65 +86,16 @@
 .logo {
   padding: auto;
 }
-/*
-
-.login-btn {
-  background-color: #4e94c8;
-  color: aliceblue;
-}
-.signup-btn {
-  color: #4e94c8;
-  background-color: aliceblue;
-}
-.btn-label {
-  margin: auto;
-  font-size: medium;
-  font-weight: 550;
-  display: none;
-}
-.signup-btn:hover {
-  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.445);
-  transition: box-shadow 200ms linear;
-  transition: width 500ms linear;
-}
-.login-btn:hover {
-  background-color: #0460a7;
-  color: aliceblue;
-  transition: background-color 500ms linear;
-  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.445);
-  transition: box-shadow 200ms linear;
-  transition: width 500ms linear;
-}
-.auth-btn:hover .btn-label {
-  display: inline-block;
-  transition: display 500ms linear;
-}*/
-/* CSS */
-.button-34 {
-  background: #5e5df0;
-  border-radius: 999px;
-  box-shadow: #5e5df0 0 10px 20px -10px;
-  box-sizing: border-box;
-  color: #ffffff;
-
-  opacity: 1;
-  padding: 8px 18px;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  width: fit-content;
-  word-break: break-word;
-}
 
 .auth-btn {
   font-size: 1.1em;
   padding: 10px 0;
-  background-color: #4e94c8;
+  background-color: #1961fc;
   color: #fff;
   border-radius: 50px;
   margin: auto;
   cursor: pointer;
-  border: 2px solid #4e94c8;
+  border: 2px solid #1961fc;
   transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .auth-btn span {
@@ -156,8 +107,8 @@
 
 .auth-btn:hover {
   padding: 10px 30px 10px 10px;
-  border: 2px solid #0460a7;
-  background-color: #0460a7;
+  border: 2px solid #0027a7;
+  background-color: #0027a7;
   transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.445);
 }
@@ -179,7 +130,7 @@
 .ico {
   transition: all 0.5s;
   background-color: rgb(248, 252, 255);
-  color: #0460a7 !important;
+  color: #0027a7 !important;
   width: 40px;
   height: 41px;
   padding: 7px;
@@ -195,7 +146,7 @@
 .signup-btn {
   color: #4e94c8;
   background-color: aliceblue;
-  border: aliceblue;
+  border-color: #0078d3;
 }
 .signup-btn .ico {
   color: #0078d3 !important;
@@ -206,4 +157,12 @@
 }
 .signup-btn:hover span {
   color: #4e94c8;
+}
+.login-btn .ico {
+  color: #ffffff !important;
+  background-color: transparent;
+}
+.login-btn:hover .ico {
+  color: #0027a7 !important;
+  background-color: white;
 }
