@@ -3,24 +3,25 @@ import CenteredModal from "Components/Modal/CenteredModal";
 import "./Hassan.css";
 
 function Hassan() {
-  const [modalShow, setModalShow] = React.useState(false);
-
+  const [modalOpen, setModalOpen] = React.useState(false);
+  const openDialog = () => setModalOpen(true);
+  const closeDialog = () => setModalOpen(false);
   return (
     <div>
-      {modalShow && (
-        <CenteredModal
-          show={modalShow}
-          onHide={() => setModalShow(false)}
-          title="Hassan, Collecteur de Monnaie"
-        >
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, quae
-            laboriosam quos, ipsa sed incidunt sit sint voluptatibus,
-            consectetur placeat perspiciatis iusto tempore voluptatum assumenda
-            enim dolore.
-          </p>
-        </CenteredModal>
-      )}
+      <CenteredModal
+        isOpen={modalOpen}
+        onHide={() => {
+          console.log(modalOpen);
+          closeDialog();
+        }}
+        title="Hassan, Collecteur de Monnaie"
+      >
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, quae
+          laboriosam quos, ipsa sed incidunt sit sint voluptatibus, consectetur
+          placeat perspiciatis iusto tempore voluptatum assumenda enim dolore.
+        </p>
+      </CenteredModal>
 
       <section className="about">
         <div className="main">
@@ -40,7 +41,7 @@ function Hassan() {
               id="btn-hassan"
               className="botton botton-color"
               type="button"
-              onClick={() => setModalShow(true)}
+              onClick={() => openDialog()}
             >
               Lire Plus
             </button>

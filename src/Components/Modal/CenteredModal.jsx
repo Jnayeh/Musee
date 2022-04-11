@@ -39,19 +39,19 @@ CloseDialogTitle.propTypes = {
   children: PropTypes.node,
   onClose: PropTypes.func.isRequired,
 };
-
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return (
+    <Grow in={props.isOpen} mountOnEnter unmountOnExit ref={ref} {...props} />
+  );
+});
 function CenteredModal(props) {
-  const Transition = React.forwardRef(function Transition(props, ref) {
-    return (
-      <Grow in={props.show} mountOnEnter unmountOnExit ref={ref} {...props} />
-    );
-  });
   return (
     <Dialog
-      open={props.show}
+      open={props.isOpen}
       TransitionComponent={Transition}
-      keepMounted
+      transitionDuration={{ enter: 500, exit: 300 }}
       onClose={props.onHide}
+      keepMounted
       aria-describedby="alert-dialog-slide-description"
       className={props.classes}
     >

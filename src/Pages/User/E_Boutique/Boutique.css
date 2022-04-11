@@ -28,6 +28,7 @@
 .prod-slide .splide__arrow {
   background-color: transparent !important;
 }
+
 /**Icon Hover Effect 4**/
 .hover-effect {
   margin: 0;
@@ -41,7 +42,6 @@
 }
 .hover-effect ul li div {
   font-size: 40px;
-  line-height: 100px;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
   -ms-transition: all 0.3s ease;
@@ -49,6 +49,7 @@
   transition: all 0.3s ease;
 }
 .hover-effect ul li.is-visible:hover > div {
+  cursor: grab;
   -moz-transform: scale(1.2);
   -webkit-transform: scale(1.2);
   -o-transform: scale(1.2);
