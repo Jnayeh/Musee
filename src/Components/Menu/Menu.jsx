@@ -24,9 +24,6 @@ function Menu() {
               <Link to="/Monnaies">Monnaies</Link>
             </li>
             <li>
-              <Link to="/Cadeaux">Cadeaux</Link>
-            </li>
-            <li>
               <Link to="/E_boutique">E-Boutique</Link>
             </li>
           </ul>

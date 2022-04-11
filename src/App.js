@@ -55,7 +55,6 @@ function App() {
           <Route path="/A_propos_nous" element={<>...</>} />
           <Route path="/Collections" element={<>...</>} />
           <Route path="/Monnaies" element={<>...</>} />
-          <Route path="/Cadeaux" element={<>...</>} />
           <Route
             path="/E_boutique"
             element={
