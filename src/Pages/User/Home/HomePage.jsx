@@ -1,8 +1,9 @@
 import React from "react";
-import { BilletProvider } from "Services/BilletContext";
-import { MonnaieProvider } from "Services/MonnaieContext";
+import { BilletHistoriqueProvider } from "Services/BilletHistoriqueContext";
+import { MonnaieHistoriqueProvider } from "Services/MonnaieHistoriqueContext";
 import Intro from "Components/Introduction/Intro";
 import Hassan from "Components/Hassan/Hassan";
+import { Slide } from "@mui/material";
 
 const AxeMonaie = React.lazy(() => import("Components/Axes/AxeMonaie"));
 const AxeBillete = React.lazy(() => import("Components/Axes/AxeBillete"));
@@ -11,23 +12,25 @@ const Collections = React.lazy(() =>
 );
 function HomePage() {
   return (
-    <div>
-      <Intro />
-      <Hassan />
-      <MonnaieProvider>
-        <React.Suspense fallback={<>...</>}>
-          <AxeMonaie />
+    <Slide in direction="up" mountOnEnter unmountOnExit>
+      <div id="home" className="padding-top">
+        <Intro />
+        <Hassan />
+        <MonnaieHistoriqueProvider>
+          <React.Suspense fallback={<> </>}>
+            <AxeMonaie />
+          </React.Suspense>
+        </MonnaieHistoriqueProvider>
+        <BilletHistoriqueProvider>
+          <React.Suspense fallback={<> </>}>
+            <AxeBillete />
+          </React.Suspense>
+        </BilletHistoriqueProvider>
+        <React.Suspense fallback={<> </>}>
+          <Collections />
         </React.Suspense>
-      </MonnaieProvider>
-      <BilletProvider>
-        <React.Suspense fallback={<>...</>}>
-          <AxeBillete />
-        </React.Suspense>
-      </BilletProvider>
-      <React.Suspense fallback={<>...</>}>
-        <Collections />
-      </React.Suspense>
-    </div>
+      </div>
+    </Slide>
   );
 }
 

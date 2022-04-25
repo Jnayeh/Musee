@@ -12,6 +12,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import InfoIcon from "@mui/icons-material/Info";
 import PropTypes from "prop-types";
+import "./CustomCard.css";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -34,19 +35,52 @@ export default function CustomCard(props) {
 
   return (
     <Card sx={{ maxWidth: 345 }} elevation={5} className={classes} {...other}>
-      <CardMedia
-        component="img"
-        height="194"
-        image={item.image}
-        alt={item.name}
-      />
+      <div className="flip-box">
+        <div className="flip-box-inner">
+          <div className="flip-box-front">
+            {item.front_image ? (
+              <CardMedia
+                component="img"
+                height="194"
+                image={item.front_image}
+                alt={item.libele}
+              />
+            ) : (
+              <CardMedia
+                component="img"
+                height="194"
+                image={"./assets/placeholder.png"}
+                alt={"placeholder"}
+              />
+            )}
+          </div>
+          <div className="flip-box-back">
+            {item.back_image ? (
+              <CardMedia
+                component="img"
+                height="194"
+                image={item.back_image}
+                alt={item.libele}
+              />
+            ) : (
+              <CardMedia
+                component="img"
+                height="194"
+                image={"./assets/placeholder.png"}
+                alt={"placeholder"}
+              />
+            )}
+          </div>
+        </div>
+      </div>
+
       <CardHeader
         /* action={
           <IconButton aria-label="settings">
             <MoreVertIcon />
           </IconButton>
         } */
-        title={item.name}
+        title={item.libele}
         subheader={item.dateCreated}
       />
 
@@ -54,9 +88,9 @@ export default function CustomCard(props) {
         <IconButton aria-label="add to favorites">
           <AddShoppingCartIcon />
         </IconButton>
-        <IconButton aria-label="share">
+        {/* <IconButton aria-label="info">
           <InfoIcon />
-        </IconButton>
+        </IconButton> */}
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
@@ -78,4 +112,7 @@ export default function CustomCard(props) {
 CustomCard.propTypes = {
   children: PropTypes.node,
   classes: PropTypes.string,
+};
+CustomCard.defaultProps = {
+  classes: "",
 };

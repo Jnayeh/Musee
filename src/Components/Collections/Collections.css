@@ -1,7 +1,9 @@
 * {
   box-sizing: border-box;
 }
-
+:root {
+  --width: 80vw;
+}
 .flex-container {
   display: flex;
   justify-content: center;
@@ -9,9 +11,11 @@
   width: 90%;
   margin: auto;
 }
+/* 1st..3rd...  ktiba 3allimin 5ater row */
 .flex-container:nth-child(odd) {
   flex-direction: row;
 }
+/* 2nd..4th... ktiba 3allisar 5ater ye9leb el row w yemchi mell ymin lellisar */
 .flex-container:nth-child(even) {
   flex-direction: row-reverse;
 }
@@ -42,12 +46,16 @@
 .ring {
   width: 400px;
   height: 400px;
+  max-width: 400px;
+  max-height: 400px;
   border-radius: 150%;
 }
 
 .img_col2 {
   width: 400px;
   height: 400px;
+  max-width: 400px;
+  max-height: 400px;
   border-radius: 100%;
   border: 15px solid #4e94c8;
   object-fit: scale-down;
@@ -59,11 +67,20 @@
   .flex-container:nth-child(even) {
     flex-direction: column-reverse;
   }
-  .flex-item-left h2,
-  .flex-item-left p {
+  .flex-item-left {
     text-align: center;
+    padding: 10px 0px;
   }
   .flex-item-left .justify-end {
     justify-content: center;
+  }
+
+  .img_col2 {
+    width: var(--width);
+    height: var(--width);
+  }
+  .ring {
+    width: var(--width);
+    height: var(--width);
   }
 }

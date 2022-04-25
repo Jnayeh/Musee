@@ -23,10 +23,10 @@ function Hassan() {
         </p>
       </CenteredModal>
 
-      <section className="about">
-        <div className="main">
+      <section className="ease about">
+        <div className="ease main">
           <img src="./assets/hassan.jpg" alt="hassan" />
-          <div className="about-text">
+          <div className="ease about-text">
             <h1>Hassan Abed Waheb</h1>
             <h5>
               Collecteur de <span>Monnaie</span>
@@ -39,7 +39,7 @@ function Hassan() {
             </p>
             <button
               id="btn-hassan"
-              className="botton botton-color"
+              className="ease botton botton-color"
               type="button"
               onClick={() => openDialog()}
             >

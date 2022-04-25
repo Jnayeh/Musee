@@ -1,13 +1,13 @@
 import React from "react";
 import CenteredModal from "Components/Modal/CenteredModal";
 import "./Axe.css";
-import BilletContext from "Services/BilletContext";
+import BilletContext from "Services/BilletHistoriqueContext";
 import Detail from "./AxeDetail/Detail";
 
 function AxeBillete(props) {
   const [modalOpen, setModalOpen] = React.useState(false);
   const [modalHistory, setModalHistory] = React.useState({
-    id: 0,
+    _id: 0,
     date: "unknown",
     title: "title",
     details: "nothing",
@@ -28,7 +28,7 @@ function AxeBillete(props) {
         <div className="timeline">
           <ul>
             {historiqueBilletes.map((element) => (
-              <li key={element.id}>
+              <li key={element._id}>
                 <Detail
                   history={element}
                   show={() => {

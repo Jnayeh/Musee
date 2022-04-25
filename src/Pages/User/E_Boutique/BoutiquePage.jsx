@@ -1,117 +1,105 @@
-import React from "react";
-import { Splide, SplideSlide } from "@splidejs/react-splide";
-import CustomCard from "Components/Card/CustomCard";
-
 import "./Boutique.css";
+import { Slide } from "@mui/material";
+import ItemSlider from "Components/ItemSlider/ItemSlider";
+import CustomCard from "Components/Card/CustomCard";
 function BoutiquePage() {
   const products = [
     {
-      id: 8,
-      name: "name",
+      _id: 8,
+      libele: "libele",
       dateCreated: new Date().toLocaleString(),
-      image: "./assets/piece.jpg",
+      front_image: "./assets/piece.jpg",
       shortDescription: " Piece msadda",
       longDescription: " Piece msadda men 9bal 3issa",
     },
     {
-      id: 1,
-      name: "name",
+      _id: 1,
+      libele: "libele",
       dateCreated: new Date().toLocaleString(),
-      image: "./assets/piece.jpg",
+      front_image: "./assets/billete.jpg",
       shortDescription: " Piece msadda",
       longDescription: " Piece msadda men 9bal 3issa",
     },
     {
-      id: 2,
-      name: "name",
+      _id: 2,
+      libele: "libele",
       dateCreated: new Date().toLocaleString(),
-      image: "./assets/piece.jpg",
+      front_image: "./assets/musée.jpg",
       shortDescription: " Piece msadda",
       longDescription: " Piece msadda men 9bal 3issa",
     },
     {
-      id: 3,
-      name: "name",
+      _id: 3,
+      libele: "libele",
       dateCreated: new Date().toLocaleString(),
-      image: "./assets/piece.jpg",
+      front_image: "./assets/hassan.jpg",
       shortDescription: " Piece msadda",
       longDescription: " Piece msadda men 9bal 3issa",
     },
     {
-      id: 4,
-      name: "name",
+      _id: 4,
+      libele: "libele",
       dateCreated: new Date().toLocaleString(),
-      image: "./assets/piece.jpg",
       shortDescription: " Piece msadda",
       longDescription: " Piece msadda men 9bal 3issa",
     },
     {
-      id: 5,
-      name: "name",
+      _id: 5,
+      libele: "libele",
       dateCreated: new Date().toLocaleString(),
-      image: "./assets/piece.jpg",
+      front_image: "./assets/piece.jpg",
       shortDescription: " Piece msadda",
       longDescription: " Piece msadda men 9bal 3issa",
     },
     {
-      id: 6,
-      name: "name",
+      _id: 6,
+      libele: "libele",
       dateCreated: new Date().toLocaleString(),
-      image: "./assets/piece.jpg",
+      front_image: "./assets/piece.jpg",
       shortDescription: " Piece msadda",
       longDescription: " Piece msadda men 9bal 3issa",
     },
     {
-      id: 7,
-      name: "name",
+      _id: 7,
+      libele: "libele",
       dateCreated: new Date().toLocaleString(),
-      image: "./assets/piece.jpg",
+      front_image: "./assets/piece.jpg",
       shortDescription: " Piece msadda",
       longDescription: " Piece msadda men 9bal 3issa",
     },
   ];
-  const [prodNumber, setProdNumber] = React.useState(3);
-  const responsiveResize = () => {
-    if (window.innerWidth >= 760) {
-      setProdNumber(3);
-    } else {
-      setProdNumber(2);
-    }
-  };
-  //Re-render once the component loads
-  React.useEffect(() => {
-    responsiveResize();
-  }, []);
 
-  //Re-render every time resize happens
-  React.useEffect(() => {
-    window.addEventListener("resize", responsiveResize);
-  });
   return (
-    <div id="boutique">
-      <h1>E-Boutique</h1>
-      <div className="prod-slide">
-        <Splide
-          options={{
-            perPage: prodNumber,
-            pagination: false,
-            drag: "free",
-            gap: "25px",
-            autoplay: true,
-            interval: 5000,
-          }}
-          className="hover-effect"
-        >
-          {products.map((product) => {
-            return (
-              <SplideSlide key={product.id}>
-                <CustomCard item={product} classes="CustomCard" />
-              </SplideSlide>
-            );
-          })}
-        </Splide>
+    <Slide in direction="down" timeout={600} mountOnEnter unmountOnExit>
+      <div id="boutique" className="padding-top">
+        <h1 className="h1">E-Boutique</h1>
+        <div className="prod-slide clear">
+          <h2 className="h2">Ouvrages</h2>
+          <ItemSlider items={products} />
+        </div>
+
+        <div className="prod-slide clear">
+          <h2 className="h2">Billets</h2>
+          <ItemSlider items={products} interval={3000} />
+        </div>
+
+        <div className="pieces-container">
+          <h2 className="h2">Pieces</h2>
+          {/* <ItemSlider items={products} more="5" medium="3" largeWidth="1520" /> */}
+          <div className="pieces">
+            {products.map((item) => {
+              return (
+                <CustomCard
+                  key={item._id}
+                  item={item}
+                  classes="CustomCard hover-effect"
+                />
+              );
+            })}
+          </div>
+        </div>
       </div>
-    </div>
+    </Slide>
   );
 }
 

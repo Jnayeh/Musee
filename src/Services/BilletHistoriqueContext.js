@@ -1,24 +1,24 @@
 import React from "react";
 
-const BilletContext = React.createContext();
+const BilletHistoriqueContext = React.createContext();
 
-export function BilletProvider({ children }) {
+export function BilletHistoriqueProvider({ children }) {
   const [historiqueBilletes /* setHistoriqueBilletes */] = React.useState([
     {
-      id: 1,
+      _id: 1,
       date: "1920...",
       title: "Habib Bourguiba",
       details:
         "Lorem ipsum dolor sit amet consectetur adipisicing elit.  Consectetur tempora ab laudantium voluptatibus aut eos placeat laborum, quibusdam exercitationem labore.",
     },
     {
-      id: 2,
+      _id: 2,
       date: "1956",
       title: "7 Nouvembre",
       details: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
     },
     {
-      id: 3,
+      _id: 3,
       date: "2011",
       title: "14 Janvier",
       details:
@@ -31,9 +31,9 @@ export function BilletProvider({ children }) {
   const getBillets = () => {
     return historiqueBilletes;
   };
-  const getBillet = (id) => {};
+  const getBillet = (_id) => {};
   return (
-    <BilletContext.Provider
+    <BilletHistoriqueContext.Provider
       value={{
         historiqueBilletes,
         addBillet,
@@ -44,7 +44,7 @@ export function BilletProvider({ children }) {
       }}
     >
       {children}
-    </BilletContext.Provider>
+    </BilletHistoriqueContext.Provider>
   );
 }
-export default BilletContext;
+export default BilletHistoriqueContext;
