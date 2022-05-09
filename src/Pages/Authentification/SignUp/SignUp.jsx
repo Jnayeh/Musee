@@ -1,6 +1,7 @@
 import React from "react";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
+import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
+import LoadingButton from "@mui/lab/LoadingButton";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
@@ -12,7 +13,6 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import { useFormControl } from "./FormControl";
 import AuthContext from "Services/AuthContext";
-import { Loading } from "Components/Loading/Loading";
 
 const theme = createTheme();
 
@@ -194,19 +194,18 @@ export default function SignUp() {
                 />
               </Grid>
             </Grid>
-            {isLoading ? (
-              <Loading />
-            ) : (
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2, bgcolor: "#0027a7" }}
-                disabled={!formIsValid()}
-              >
-                S'inscrire
-              </Button>
-            )}
+
+            <LoadingButton
+              loading={isLoading}
+              variant="contained"
+              type="submit"
+              fullWidth
+              sx={{ mt: 3, mb: 2 }}
+              disabled={!formIsValid()}
+            >
+              S'inscrire <ArrowCircleRightOutlinedIcon />
+            </LoadingButton>
+
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link to="/sign-in">

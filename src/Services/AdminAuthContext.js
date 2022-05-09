@@ -9,9 +9,11 @@ const AdminAuthContext = React.createContext();
 export function AdminAuthProvider({ children }) {
   const [user, setUser] = React.useState(null);
   const [token, setToken] = React.useState(null);
+  const [isLoading, setLoading] = React.useState(false);
   const navigate = useNavigate();
 
   const logIn = (adminData) => {
+    setLoading(true);
     let loginURL =
       process.env.REACT_APP_API_URL +
       process.env.REACT_APP_admin_route +
@@ -20,10 +22,11 @@ export function AdminAuthProvider({ children }) {
     axios
       .post(loginURL, adminData)
       .then((res) => {
+        setLoading(false);
         if (res) {
           //handle success
           let t = res.data.token;
-          navigate("/admin");
+          navigate("/admin", { replace: true });
           localStorage.setItem("token", t);
           Cookies.set("token", t);
           setToken(t);
@@ -37,6 +40,7 @@ export function AdminAuthProvider({ children }) {
       });
   };
   const getUser = () => {
+    setLoading(true);
     let DT = decodedToken();
     console.log(DT);
     if (DT.role === "administrateur") {
@@ -46,10 +50,12 @@ export function AdminAuthProvider({ children }) {
       })
         .then(function (response) {
           //handle success
+          setLoading(false);
           setUser(response);
         })
         .catch((err) => {
           //handle error
+          setLoading(false);
           console.log(err);
         });
     }
@@ -106,8 +112,9 @@ export function AdminAuthProvider({ children }) {
     <AdminAuthContext.Provider
       value={{
         token,
-        decodedToken,
         user,
+        isLoading,
+        decodedToken,
         logIn,
         logOut,
       }}

@@ -69,6 +69,9 @@
 .nav-links ul li a:hover::after {
   width: 100%;
 }
+.nav-links ul li a.selected::after {
+  width: 100%;
+}
 
 .nav-user {
   margin: auto 0;
@@ -195,14 +198,14 @@
 }
 
 /* hides logo in small devices */
-  
-  #row-user{
-    display: none; 
-  }
-  #column-user{
-    display: flex; justify-content: center; 
 
-  }
+#row-user {
+  display: none;
+}
+#column-user {
+  display: flex;
+  justify-content: center;
+}
 /* MEDIA QUERIE*/
 @media only screen and (min-width: 1020px) {
   /* shows default navigation */
@@ -221,21 +224,19 @@
   }
 }
 @media only screen and (min-width: 450px) {
-
-  .nav-logo img{
+  .nav-logo img {
     width: auto;
     height: 70px;
   }
   .menu-popup .MuiPopover-paper {
-    
     padding: 0px;
     width: fit-content;
   }
-  #column-user{
-    display: none
+  #column-user {
+    display: none;
   }
-  #row-user{
-    display: flex; 
+  #row-user {
+    display: flex;
   }
   /* .nav-logo{
     display: none;

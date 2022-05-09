@@ -3,19 +3,18 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Link } from "react-router-dom";
 import AdminAuthContext from "Services/AdminAuthContext";
 
 const theme = createTheme();
 
 export default function SignInAdmin() {
-  const { logIn } = React.useContext(AdminAuthContext);
+  const { logIn, isLoading } = React.useContext(AdminAuthContext);
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -32,11 +31,7 @@ export default function SignInAdmin() {
         component="main"
         maxWidth="xs"
         sx={{
-          marginTop: "100px",
-          marginBottom: 6,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          marginTop: "20vh",
         }}
       >
         <CssBaseline />
@@ -49,7 +44,7 @@ export default function SignInAdmin() {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "aqua" }}>
+          <Avatar sx={{ m: 1, bgcolor: "ghostwhite", color: "gray" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -83,27 +78,15 @@ export default function SignInAdmin() {
             />
 
             <Button
+              disabled={isLoading}
+              startIcon={<LoginOutlinedIcon />}
               type="submit"
               fullWidth
-              variant="contained"
+              variant="outlined"
               sx={{ mt: 3, mb: 2 }}
             >
               Se connecter
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link to="/forgot-password">
-                  <Typography variant="body2">Forgot password?</Typography>
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link to="/sign-up">
-                  <Typography variant="body2">
-                    Don't have an account? Sign Up
-                  </Typography>
-                </Link>
-              </Grid>
-            </Grid>
           </Box>
         </Box>
       </Container>

@@ -16,17 +16,19 @@ export const useFormControl = () => {
   // "errors" is used to check the form for errors
   const [errors, setErrors] = useState({});
 
+  //Error message for required fields
+  const requiredError = "This field is required.";
+
   // this function will check if the form values are valid
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
 
     if ("prenom" in fieldValues)
-      temp.prenom = fieldValues.prenom ? "" : "This field is required.";
-    if ("nom" in fieldValues)
-      temp.nom = fieldValues.nom ? "" : "This field is required.";
+      temp.prenom = fieldValues.prenom ? "" : requiredError;
+    if ("nom" in fieldValues) temp.nom = fieldValues.nom ? "" : requiredError;
 
     if ("email" in fieldValues) {
-      temp.email = fieldValues.email ? "" : "This field is required.";
+      temp.email = fieldValues.email ? "" : requiredError;
       if (fieldValues.email)
         temp.email = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(fieldValues.email)
           ? ""
@@ -35,9 +37,7 @@ export const useFormControl = () => {
 
     if ("mot_de_passe" in fieldValues) {
       console.log(fieldValues.mot_de_passe);
-      temp.mot_de_passe = fieldValues.mot_de_passe
-        ? ""
-        : "This field is required.";
+      temp.mot_de_passe = fieldValues.mot_de_passe ? "" : requiredError;
       if (fieldValues.mot_de_passe) {
         temp.mot_de_passe =
           /* Check if at least has one special character : (?=.*[!@#$%^&*]) */
@@ -47,7 +47,7 @@ export const useFormControl = () => {
             : "Password must be longer than 6 characters.";
         temp.mot_de_passe_confirm = fieldValues.mot_de_passe_confirm
           ? ""
-          : "This field is required.";
+          : requiredError;
       }
     }
 
@@ -88,7 +88,7 @@ export const useFormControl = () => {
       temp.mot_de_passe_confirm =
         values.mot_de_passe === value ? "" : "Does not match password.";
     } else {
-      temp.mot_de_passe_confirm = "This field is required.";
+      temp.mot_de_passe_confirm = requiredError;
     }
 
     setErrors({

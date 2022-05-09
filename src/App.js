@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
-import { Fab, Zoom } from "@mui/material";
+import Zoom from "@mui/material/Zoom";
+import Fab from "@mui/material/Fab";
 import UpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { KeyboardArrowLeft } from "@mui/icons-material";
 
@@ -11,9 +12,14 @@ import {
   useLocation,
   useNavigate,
 } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
+import smoothscroll from "smoothscroll-polyfill";
 
 import { AuthProvider } from "Services/AuthContext";
 import { AdminAuthProvider } from "Services/AdminAuthContext";
+
+import LoadingFull from "Components/Loading/LoadingFull";
+import LoadingContained from "Components/Loading/LoadingContained";
 
 import SignInAdmin from "Pages/Admin/SignInAdmin/SignInAdmin";
 import SignIn from "Pages/Authentification/SignIn/SignIn";
@@ -22,40 +28,57 @@ import SignUp from "Pages/Authentification/SignUp/SignUp";
 import UserApp from "Pages/User/UserApp";
 import AdminApp from "Pages/Admin/AdminApp";
 import HomePage from "Pages/User/Home/HomePage";
+import { OuvrageProvider } from "Services/OuvrageContext";
+import { PeriodeProvider } from "Services/PeriodeContext";
+import NotFoundPage from "Pages/404/NotFoundPage";
 
-import { Loading } from "Components/Loading/Loading";
-import Dashboard from "Pages/Admin/Dashboard/Dashboard";
-const DashboardLayout = React.lazy(() =>
-  import("Pages/Admin/DashboardLayout/DashboardLayout")
+/* LAYOUT COMPONENTS */
+import DashboardLayout from "Pages/Admin/DashboardLayout/DashboardLayout";
+import PeriodePages from "Pages/Admin/periodes/PeriodePages";
+import BilletPages from "Pages/Admin/billets/BilletPages";
+import PiecePages from "Pages/Admin/pieces/PiecePages";
+
+const Dashboard = React.lazy(() => import("Pages/Admin/Dashboard/Dashboard"));
+
+/* Periodes Lazy Loaded */
+const ListPeriodes = React.lazy(() =>
+  import("Pages/Admin/periodes/ListPeriodes/ListPeriodes")
 );
+const PeriodeForm = React.lazy(() =>
+  import("Pages/Admin/periodes/PeriodeForm/PeriodeForm")
+);
+
+/* Billets Lazy Loaded */
+const ListBillets = React.lazy(() =>
+  import("Pages/Admin/billets/ListBillets/ListBillets")
+);
+const BilletForm = React.lazy(() =>
+  import("Pages/Admin/billets/BilletForm/BilletForm")
+);
+
+/* Pieces Lazy Loaded */
+const ListPieces = React.lazy(() =>
+  import("Pages/Admin/pieces/ListPieces/ListPieces")
+);
+const PieceForm = React.lazy(() =>
+  import("Pages/Admin/pieces/PieceForm/PieceForm")
+);
+
 const BoutiquePage = React.lazy(() =>
   import("Pages/User/E_Boutique/BoutiquePage")
 );
-const NotFoundPage = React.lazy(() => import("Pages/404/NotFoundPage"));
-
-function LoadingFull() {
-  return (
-    <div
-      style={{
-        height: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-      }}
-    >
-      <Loading />
-    </div>
-  );
-}
 
 function App() {
+  smoothscroll.polyfill();
   const navigate = useNavigate();
 
   const [top, setTop] = React.useState(false);
   const [backButton, setbackButton] = React.useState(false);
   const [visible, setVisible] = React.useState(false);
   const scrollTop = () => {
-    window.scrollTo(0, 0);
+    /*
+      window.scrollTo(0, 0);
+    */
     setTop(false);
   };
 
@@ -91,69 +114,121 @@ function App() {
 
   return (
     <>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <AuthProvider>
-              <UserApp />
-            </AuthProvider>
-          }
-        >
-          <Route index element={<HomePage />} />
-          <Route path="/A_propos_nous" element={<Loading />} />
-          <Route path="/Collections" element={<Loading />} />
-          <Route path="/Monnaies" element={<Loading />} />
-          <Route
-            path="/E_boutique"
-            element={
-              <React.Suspense fallback={<Loading />}>
-                <BoutiquePage />
-              </React.Suspense>
-            }
-          />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/sign-in" element={<SignIn />} />
-        </Route>
+      <AuthProvider>
+        <AdminAuthProvider>
+          <div id="top"></div>
+          <Routes>
+            <Route path="/" element={<UserApp />}>
+              <Route index element={<HomePage />} />
+              <Route path="/A_propos_nous" element={<LoadingFull />} />
+              <Route path="/Collections" element={<LoadingFull />} />
+              <Route path="/Monnaies" element={<LoadingFull />} />
+              <Route
+                path="/E_boutique"
+                element={
+                  <React.Suspense fallback={<LoadingFull />}>
+                    <BoutiquePage />
+                  </React.Suspense>
+                }
+              />
+              <Route path="/sign-up" element={<SignUp />} />
+              <Route path="/sign-in" element={<SignIn />} />
+            </Route>
 
-        <Route
-          path="admin"
-          element={
-            <AdminAuthProvider>
-              <AdminApp />
-            </AdminAuthProvider>
-          }
-        >
-          <Route path="sign-in" element={<SignInAdmin />} />
-          <Route index element={<Navigate to="dashboard" replace />} />
+            <Route path="admin" element={<AdminApp />}>
+              <Route path="sign-in" element={<SignInAdmin />} />
+              <Route index element={<Navigate to="dashboard" replace />} />
 
-          <Route
-            path="dashboard"
-            element={
-              <React.Suspense fallback={<Loading />}>
-                <DashboardLayout />
-              </React.Suspense>
-            }
-          >
-            <Route index element={<Dashboard />} />
-            <Route path="ouvrages" element={<SignInAdmin />} />
-            <Route path="pieces" element={<SignInAdmin />} />
-            <Route path="utilisateurs" element={<SignInAdmin />} />
-            <Route path="billets" element={<SignInAdmin />} />
-            <Route path="periodes" element={<SignInAdmin />} />
-          </Route>
-        </Route>
+              <Route path="dashboard" element={<DashboardLayout />}>
+                <Route
+                  index
+                  element={
+                    <React.Suspense fallback={<LoadingContained />}>
+                      <Dashboard />
+                    </React.Suspense>
+                  }
+                />
+                <Route
+                  path="utilisateurs"
+                  element={
+                    <React.Suspense fallback={<LoadingContained />}>
+                      <SignInAdmin />
+                    </React.Suspense>
+                  }
+                />
+                <Route
+                  path="ouvrages"
+                  element={
+                    <OuvrageProvider>
+                      <React.Suspense fallback={<LoadingContained />}>
+                        <SignInAdmin />
+                      </React.Suspense>
+                    </OuvrageProvider>
+                  }
+                />
+                <Route path="periodes" element={<PeriodePages />}>
+                  <Route
+                    index
+                    element={
+                      <React.Suspense fallback={<LoadingContained />}>
+                        <ListPeriodes />
+                      </React.Suspense>
+                    }
+                  />
+                  <Route
+                    path=":id"
+                    element={
+                      <React.Suspense fallback={<LoadingContained />}>
+                        <PeriodeForm />
+                      </React.Suspense>
+                    }
+                  />
+                </Route>
+                <Route path="pieces" element={<PiecePages />}>
+                  <Route
+                    index
+                    element={
+                      <React.Suspense fallback={<LoadingContained />}>
+                        <ListPieces />
+                      </React.Suspense>
+                    }
+                  />
+                  <Route
+                    path=":id"
+                    element={
+                      <React.Suspense fallback={<LoadingContained />}>
+                        <PieceForm />
+                      </React.Suspense>
+                    }
+                  />
+                </Route>
 
-        <Route
-          path="/404"
-          element={
-            <React.Suspense fallback={<LoadingFull />}>
-              <NotFoundPage />
-            </React.Suspense>
-          }
-        />
-        <Route path="*" element={<Navigate to="/404" replace />} />
-      </Routes>
+                <Route path="billets" element={<BilletPages />}>
+                  <Route
+                    index
+                    element={
+                      <React.Suspense fallback={<LoadingContained />}>
+                        <ListBillets />
+                      </React.Suspense>
+                    }
+                  />
+                  <Route
+                    path=":id"
+                    element={
+                      <React.Suspense fallback={<LoadingContained />}>
+                        <BilletForm />
+                      </React.Suspense>
+                    }
+                  />
+                </Route>
+              </Route>
+            </Route>
+
+            <Route path="/404" element={<NotFoundPage />} />
+            <Route path="*" element={<Navigate to="/404" replace />} />
+          </Routes>
+        </AdminAuthProvider>
+      </AuthProvider>
 
       {visible && (
         <div className="navigations">
@@ -169,9 +244,11 @@ function App() {
           )}
           <div></div>
           <Zoom in={top} unmountOnExit>
-            <Fab size="medium" color="primary" onClick={scrollTop}>
-              <UpIcon />
-            </Fab>
+            <HashLink smooth to="#top">
+              <Fab size="medium" color="primary" onClick={scrollTop}>
+                <UpIcon />
+              </Fab>
+            </HashLink>
           </Zoom>
         </div>
       )}

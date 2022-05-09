@@ -1,8 +1,8 @@
 import React from "react";
 import CenteredModal from "Components/Modal/CenteredModal";
 import "./Axe.css";
-import BilletContext from "Services/BilletHistoriqueContext";
 import Detail from "./AxeDetail/Detail";
+import PeriodeContext from "Services/PeriodeContext";
 
 function AxeBillete(props) {
   const [modalOpen, setModalOpen] = React.useState(false);
@@ -12,7 +12,14 @@ function AxeBillete(props) {
     title: "title",
     details: "nothing",
   });
-  const { historiqueBilletes } = React.useContext(BilletContext);
+
+  const { historiqueBilletes, getBilletesPeriodes } =
+    React.useContext(PeriodeContext);
+
+  React.useEffect(() => {
+    getBilletesPeriodes();
+  }, []);
+
   return (
     <div>
       <CenteredModal

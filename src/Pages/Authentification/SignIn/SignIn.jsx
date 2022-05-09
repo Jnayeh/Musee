@@ -1,19 +1,38 @@
 import React from "react";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import LoginRoundedIcon from "@mui/icons-material/LoginRounded";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
-import { Loading } from "Components/Loading/Loading";
+import LoadingButton from "@mui/lab/LoadingButton";
 import AuthContext from "Services/AuthContext";
 
 const theme = createTheme();
+
+function LoginRoundedOUtlined() {
+  return (
+    <div
+      style={{
+        border: "#158fef solid 2px",
+        borderRadius: "50%",
+        height: "28px",
+        width: "28px",
+      }}
+    >
+      <LoginRoundedIcon
+        style={{
+          padding: "2px",
+        }}
+      />
+    </div>
+  );
+}
 
 export default function SignIn() {
   const { logIn, isLoading } = React.useContext(AuthContext);
@@ -33,7 +52,7 @@ export default function SignIn() {
         component="main"
         maxWidth="xs"
         sx={{
-          marginTop: "100px",
+          marginTop: "130px",
           marginBottom: 6,
           display: "flex",
           flexDirection: "column",
@@ -50,10 +69,10 @@ export default function SignIn() {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1 }}>
+          <Avatar sx={{ m: 1, color: "#1aa7ec", bgcolor: "whitesmoke" }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" sx={{ color: "#1aa7ec" }}>
             Connexion
           </Typography>
           <Box
@@ -82,20 +101,18 @@ export default function SignIn() {
               id="password"
               autoComplete="current-password"
             />
-            {isLoading ? (
-              <div style={{ padding: "20px 0px" }}>
-                <Loading />
-              </div>
-            ) : (
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Se connecter
-              </Button>
-            )}
+
+            <LoadingButton
+              loading={isLoading}
+              loadingPosition="start"
+              startIcon={<LoginRoundedOUtlined />}
+              variant="outlined"
+              type="submit"
+              fullWidth
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Se connecter
+            </LoadingButton>
 
             <Grid container>
               <Grid item xs>

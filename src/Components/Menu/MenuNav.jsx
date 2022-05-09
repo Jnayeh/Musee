@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { NavHashLink } from "react-router-hash-link";
 
 function MenuNav(props) {
   return (
@@ -9,19 +10,27 @@ function MenuNav(props) {
           <Link to="/">Page Acceuil</Link>
         </li>
         <li>
-          <Link to="/A_propos_nous">A Propos Nous</Link>
+          <NavHashLink smooth to="/#A_propos_nous">
+            A Propos Nous
+          </NavHashLink>
         </li>
         <li>
-          <Link to="/Collections">Collections</Link>
+          <NavHashLink smooth to="/#Monnaies">
+            Monnaies
+          </NavHashLink>
         </li>
         <li>
-          <Link to="/Monnaies">Monnaies</Link>
+          <NavHashLink smooth to="/#Collections">
+            Collections
+          </NavHashLink>
+        </li>
+        <li>
+          <NavHashLink smooth to="/#Contact">
+            Contacter
+          </NavHashLink>
         </li>
         <li>
           <Link to="/E_boutique">E-Boutique</Link>
-        </li>
-        <li>
-          <Link to="/Contact">Contacter</Link>
         </li>
       </ul>
     </div>

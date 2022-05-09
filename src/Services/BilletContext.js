@@ -1,94 +1,128 @@
 import axios from "axios";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const BilletContext = React.createContext();
 
 export function BilletProvider({ children }) {
   const [billets, setBillets] = React.useState([]);
-  const billetURL = process.env.API_URL + "billets";
-  const billetPeriodeURL = process.env.API_URL + "periodes";
+  const [isLoading, setLoading] = React.useState(false);
+
+  const navigate = useNavigate();
+
+  const billetURL = process.env.REACT_APP_API_URL + "billets/";
+  const billetPeriodeURL = process.env.REACT_APP_API_URL + "periodes/";
+  const FormDataConfig = { "Content-Type": "multipart/form-data" };
+
   const addBillet = (FormData) => {
-    axios({
-      method: "post",
-      url: billetURL,
-      data: FormData,
-      headers: { "Content-Type": "multipart/form-data" },
-    })
-      .then(function (response) {
+    setLoading(true);
+    axios
+      .post(billetURL, FormData, FormDataConfig)
+      .then((response) => {
+        setLoading(false);
+        if (!response.data.error) {
+          setBillets((prevState) => [...prevState, response.data]);
+          return response;
+        }
         //handle success
         console.log(response);
       })
       .catch((err) => {
+        setLoading(false);
         //handle error
-        console.log(err);
+        console.log("Hey", err);
       });
   };
-  const updateBillet = (FormData, _id) => {
-    axios({
-      method: "put",
-      url: billetURL + "/" + _id,
-      data: FormData,
-      headers: { "Content-Type": "multipart/form-data" },
-    })
-      .then(function (response) {
-        //handle success
-        console.log(response);
-      })
-      .catch((err) => {
-        //handle error
-        console.log(err);
+  const updateBillet = async (FormData, _id) => {
+    try {
+      const response = await axios({
+        method: "put",
+        url: billetURL + _id,
+        data: FormData,
+        headers: FormDataConfig,
       });
+      //handle success
+      if (!response.data.error) {
+        getBillets();
+        navigate("../billets");
+        return response;
+      }
+    } catch (err) {
+      //handle error
+      console.log(err);
+    }
   };
-  const removeBillet = (_id) => {
-    axios({
-      method: "delete",
-      url: billetURL + "/" + _id,
-    })
-      .then(function (response) {
-        //handle success
-        console.log(response);
-      })
-      .catch((err) => {
-        //handle error
-        console.log(err);
+  const removeBillet = async (_id) => {
+    setLoading(true);
+    try {
+      const response = await axios({
+        method: "delete",
+        url: billetURL + _id,
       });
+      setLoading(false);
+      //handle success
+      if (response.data.success) {
+        console.log("DELETED :  ", response);
+        setBillets(billets.filter((item) => item._id !== _id));
+        return response;
+      }
+    } catch (err) {
+      //handle error
+      console.log(err);
+    }
   };
-  const getBillets = () => {
-    axios({
+
+  const getBillet = async (_id) => {
+    setLoading(true);
+    return axios({
       method: "get",
-      url: billetURL,
+      url: billetURL + _id,
     })
-      .then(function (response) {
+      .then((response) => {
+        setLoading(false);
         //handle success
-        console.log(response);
+        if (!response.data.error) {
+          return response.data;
+        }
       })
       .catch((err) => {
         //handle error
         console.log(err);
       });
   };
-  const getBillet = (_id) => {
-    axios({
-      method: "get",
-      url: billetURL + "/" + _id,
-    })
-      .then(function (response) {
-        //handle success
-        console.log(response);
-      })
-      .catch((err) => {
-        //handle error
-        console.log(err);
+
+  const getBillets = async () => {
+    setLoading(true);
+    try {
+      const response = await axios({
+        method: "get",
+        url: billetURL,
       });
+      //handle success
+      setLoading(false);
+      if (!response.data.error) {
+        setBillets(response.data);
+        return response;
+      }
+      console.log(response);
+    } catch (err) {
+      //handle error
+      console.log(err);
+    }
   };
-  const getBilletsParPeriode = (_id) => {
-    axios({
+
+  const getBilletsParPeriode = async (_id) => {
+    setLoading(true);
+    return axios({
       method: "get",
-      url: billetPeriodeURL + "/" + _id + "/billets",
+      url: billetPeriodeURL + _id + "/billets",
     })
-      .then(function (response) {
+      .then((response) => {
+        setLoading(false);
         //handle success
-        console.log(response);
+        if (!response.data.error) {
+          return response.data;
+        }
       })
       .catch((err) => {
         //handle error
@@ -99,10 +133,11 @@ export function BilletProvider({ children }) {
     <BilletContext.Provider
       value={{
         billets,
-        getBilletsParPeriode,
+        isLoading,
         addBillet,
         updateBillet,
         removeBillet,
+        getBilletsParPeriode,
         getBillets,
         getBillet,
       }}

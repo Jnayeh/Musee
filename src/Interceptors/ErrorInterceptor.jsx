@@ -37,7 +37,9 @@ const ErrorInterceptor = ({ children, logOut }) => {
         }
       }
     );
-    return () => {};
+    return function clean() {
+      console.log("DONE");
+    };
   }, []);
 
   return (
@@ -55,6 +57,8 @@ const ErrorInterceptor = ({ children, logOut }) => {
           >
             {response && response.data.success
               ? response.data.success
+              : response && response.data.role
+              ? "Logged In"
               : "Success!!"}
           </Alert>
         </AlertSnack>
@@ -66,7 +70,7 @@ const ErrorInterceptor = ({ children, logOut }) => {
           handleClose={handleClose}
         >
           <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
-            {err && err.data.error.message
+            {err && err.data && err.data.error && err.data.error.message
               ? "Server Error: " + err.data.error.message
               : err && err.data.error
               ? err.data.error

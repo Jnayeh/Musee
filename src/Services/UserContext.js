@@ -1,87 +1,83 @@
-import React from "react";
 import axios from "axios";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const OuvrageContext = React.createContext();
+const UserContext = React.createContext();
 
-export function OuvrageProvider({ children }) {
-  const [ouvrages, setOuvrages] = React.useState([]);
+export function UserProvider({ children }) {
+  const [users, setUsers] = React.useState([]);
   const [isLoading, setLoading] = React.useState(false);
 
   const navigate = useNavigate();
 
-  const ouvrageURL = process.env.REACT_APP_API_URL + "ouvrages/";
+  const userURL = process.env.REACT_APP_API_URL + "users/";
 
   const FormDataConfig = { "Content-Type": "multipart/form-data" };
 
-  const addOuvrage = (FormData) => {
+  const addUser = (userData) => {
     setLoading(true);
     axios
-      .post(ouvrageURL, FormData, FormDataConfig)
-      .then((response) => {
+      .post(userURL, userData)
+      .then((res) => {
         setLoading(false);
-        //handle success
-        if (!response.data.error) {
-          setOuvrages((prevState) => [...prevState, response.data]);
+        if (!res.data.error) {
+          //handle success
+          getUsers();
+          console.log("res: ", res);
         }
-        console.log(response);
       })
       .catch((err) => {
-        setLoading(false);
         //handle error
-        console.log("Hey", err);
+        console.log(token);
+        //console.log(err.response.data.error);
       });
   };
-
-  const updateOuvrage = async (FormData, _id) => {
+  const updateUser = async (FormData, _id) => {
     try {
       const response = await axios({
         method: "put",
-        url: ouvrageURL + _id,
+        url: userURL + _id,
         data: FormData,
         headers: FormDataConfig,
       });
-      ///handle success
+      //handle success
       if (!response.data.error) {
-        getOuvrages();
-        navigate("../ouvrages");
+        getUsers();
+        navigate("../users");
       }
-      console.log(response);
     } catch (err) {
       //handle error
       console.log(err);
     }
   };
-  const removeOuvrage = async (_id) => {
+  const changePassword = async (passwordData, _id) => {
+    try {
+      const response = await axios({
+        method: "put",
+        url: userURL + _id,
+        data: passwordData,
+      });
+      //handle success
+      if (!response.data.error) {
+        getUsers();
+        navigate("../users");
+      }
+    } catch (err) {
+      //handle error
+      console.log(err);
+    }
+  };
+  const removeUser = async (_id) => {
     setLoading(true);
     try {
       const response = await axios({
         method: "delete",
-        url: ouvrageURL + _id,
+        url: userURL + _id,
       });
       setLoading(false);
       //handle success
       if (!response.data.error) {
-        setOuvrages(ouvrages.filter((item) => item._id !== _id));
-        console.log(response);
-      }
-    } catch (err) {
-      //handle error
-      console.log(err);
-    }
-  };
-
-  const getOuvrages = async () => {
-    setLoading(true);
-    try {
-      const response = await axios({
-        method: "get",
-        url: ouvrageURL,
-      });
-      //handle success
-      setLoading(false);
-      if (!response.data.error) {
-        setOuvrages(response.data);
+        setUsers(users.filter((item) => item._id !== _id));
       }
       console.log(response);
     } catch (err) {
@@ -90,11 +86,30 @@ export function OuvrageProvider({ children }) {
     }
   };
 
-  const getOuvrage = async (_id) => {
+  const getUsers = async () => {
+    setLoading(true);
+    try {
+      const response = await axios({
+        method: "get",
+        url: userURL,
+      });
+      //handle success
+      setLoading(false);
+      if (!response.data.error) {
+        setUsers(response.data);
+      }
+      console.log(response);
+    } catch (err) {
+      //handle error
+      console.log(err);
+    }
+  };
+
+  const getUser = async (_id) => {
     setLoading(true);
     return axios({
       method: "get",
-      url: ouvrageURL + _id,
+      url: userURL + _id,
     })
       .then((response) => {
         setLoading(false);
@@ -110,20 +125,20 @@ export function OuvrageProvider({ children }) {
   };
 
   return (
-    <OuvrageContext.Provider
+    <UserContext.Provider
       value={{
+        users,
         isLoading,
-        ouvrages,
-        addOuvrage,
-        updateOuvrage,
-        removeOuvrage,
-        getOuvrages,
-        getOuvrage,
+        addUser,
+        updateUser,
+        changePassword,
+        removeUser,
+        getUsers,
+        getUser,
       }}
     >
       {children}
-    </OuvrageContext.Provider>
+    </UserContext.Provider>
   );
 }
-
-export default OuvrageContext;
+export default UserContext;

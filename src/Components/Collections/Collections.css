@@ -29,6 +29,10 @@
   font-size: 20px;
   flex: 50%;
 }
+.flex-item-left h2 {
+  
+  font-size: 1.5rem;
+}
 
 /*  box red */
 
@@ -63,6 +67,7 @@
 
 /* Responsive layout - makes a one column-layout instead of two-column layout */
 @media (max-width: 1000px) {
+  
   .flex-container:nth-child(odd),
   .flex-container:nth-child(even) {
     flex-direction: column-reverse;

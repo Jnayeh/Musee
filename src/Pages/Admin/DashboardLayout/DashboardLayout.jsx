@@ -23,6 +23,12 @@ import {
   SecondaryListItems,
 } from "Pages/Admin/DashboardLayout/ListItems/ListItems";
 
+import PeriodeContext, { PeriodeProvider } from "Services/PeriodeContext";
+
+import Fab from "@mui/material/Fab";
+import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
+import { useNavigate } from "react-router-dom";
+
 function Copyright(props) {
   return (
     <Typography
@@ -87,10 +93,19 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
+function PagesOutlet() {
+  const { getPeriodes } = React.useContext(PeriodeContext);
+  React.useEffect(() => {
+    getPeriodes();
+  }, []);
+  return <Outlet />;
+}
+
 const mdTheme = createTheme();
 
 export default function DashboardLayout() {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate();
 
   const toggleDrawer = () => {
     setOpen(!open);
@@ -177,8 +192,30 @@ export default function DashboardLayout() {
               justifyContent: "space-between",
             }}
           >
-            <Grid container spacing={3}>
-              <Outlet />
+            <div></div>
+            <Grid container spacing={3} paddingLeft={3}>
+              <PeriodeProvider>
+                <PagesOutlet />
+              </PeriodeProvider>
+              <div
+                style={{
+                  position: "fixed",
+                  right: "20px",
+                  bottom: "20px",
+                  padding: "20px",
+                }}
+              >
+                <div></div>
+                <Fab
+                  size="small"
+                  variant="extended"
+                  onClick={() => {
+                    navigate(-1);
+                  }}
+                >
+                  <KeyboardArrowLeft /> Retour
+                </Fab>
+              </div>
             </Grid>
 
             <Copyright sx={{ pt: 4, pb: 2 }} />

@@ -14,17 +14,19 @@ export function AuthProvider({ children }) {
 
   const navigate = useNavigate();
 
+  let loginURL = process.env.REACT_APP_API_URL + "loginUser";
+  let signUpURL = process.env.REACT_APP_API_URL + "users";
+
   const logIn = (userData) => {
-    let loginURL = process.env.REACT_APP_API_URL + "loginUser";
     setLoading(true);
     axios
       .post(loginURL, userData)
       .then((res) => {
+        //handle success
         setLoading(false);
-        if (res) {
-          //handle success
-          let t = res.data.token;
 
+        if (!res.data.error) {
+          let t = res.data.token;
           localStorage.setItem("token", t);
           Cookies.set("token", t);
           setToken(t);
@@ -39,18 +41,21 @@ export function AuthProvider({ children }) {
       })
       .catch((err) => {
         //handle error
+        setLoading(false);
         console.log(err.json());
         //console.log(err.response.data.error);
       });
   };
 
   const signUp = (userData) => {
-    let signUpURL = process.env.REACT_APP_API_URL + "users";
+    setLoading(true);
 
     axios
       .post(signUpURL, userData)
       .then((res) => {
-        if (res) {
+        setLoading(false);
+
+        if (!res.data.error) {
           //handle success
           let t = res.data.token;
 
@@ -81,7 +86,9 @@ export function AuthProvider({ children }) {
       })
         .then((response) => {
           //handle success
-          setUser(response);
+          if (!response.data.error) {
+            setUser(response);
+          }
         })
         .catch((err) => {
           //handle error

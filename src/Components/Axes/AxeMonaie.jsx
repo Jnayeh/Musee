@@ -1,8 +1,8 @@
 import React from "react";
 import CenteredModal from "Components/Modal/CenteredModal";
-import MonnaieContext from "Services/MonnaieHistoriqueContext";
 import "./Axe.css";
 import Detail from "./AxeDetail/Detail";
+import PeriodeContext from "Services/PeriodeContext";
 
 function AxeMonaie() {
   const [modalShow, setModalShow] = React.useState(false);
@@ -12,7 +12,13 @@ function AxeMonaie() {
     title: "title",
     details: "Lorem",
   });
-  const { historiqueMonnaies } = React.useContext(MonnaieContext);
+
+  const { historiqueMonnaies, getMonnaiesPeriodes } =
+    React.useContext(PeriodeContext);
+
+  React.useEffect(() => {
+    getMonnaiesPeriodes();
+  }, []);
   return (
     <div>
       <CenteredModal

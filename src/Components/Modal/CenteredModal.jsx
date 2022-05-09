@@ -56,7 +56,9 @@ function CenteredModal(props) {
       className={props.classes}
     >
       <CloseDialogTitle onClose={props.onHide}>{props.title}</CloseDialogTitle>
-      <DialogContent>{props.children}</DialogContent>
+      <DialogContent style={{ minWidth: "250px !important" }}>
+        {props.children}
+      </DialogContent>
       {props.actions && (
         <DialogActions>
           <Button onClick={props.onHide}>Disagree</Button>
@@ -67,7 +69,7 @@ function CenteredModal(props) {
   );
 }
 CenteredModal.defaultProps = {
-  title: "unknown title",
+  title: " ",
   classes: "",
   actions: null,
 };
