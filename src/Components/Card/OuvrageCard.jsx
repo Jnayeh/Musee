@@ -25,7 +25,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function CustomCard(props) {
+export default function OuvrageCard(props) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -35,46 +35,31 @@ export default function CustomCard(props) {
 
   return (
     <Card sx={{ maxWidth: 345 }} elevation={5} className={classes} {...other}>
-      <div className="flip-box">
-        <div className="flip-box-inner">
-          <div className="flip-box-front">
-            {item.front_image ? (
-              <CardMedia
-                component="img"
-                height="194"
-                image={item.front_image}
-                alt={item.libele}
-              />
-            ) : (
-              <CardMedia
-                component="img"
-                height="194"
-                image={"./assets/placeholder.png"}
-                alt={"placeholder"}
-              />
-            )}
-          </div>
-          <div className="flip-box-back">
-            {item.back_image ? (
-              <CardMedia
-                component="img"
-                height="194"
-                image={item.back_image}
-                alt={item.libele}
-              />
-            ) : (
-              <CardMedia
-                component="img"
-                height="194"
-                image={"./assets/placeholder.png"}
-                alt={"placeholder"}
-              />
-            )}
-          </div>
-        </div>
-      </div>
+      {item.front_image ? (
+        <CardMedia
+          component="img"
+          height="194"
+          image={item.front_image}
+          alt={item.libele}
+        />
+      ) : (
+        <CardMedia
+          component="img"
+          height="194"
+          image={"./assets/placeholder.png"}
+          alt={"placeholder"}
+        />
+      )}
 
-      <CardHeader title={item.libele} subheader={item.prix + "DT"} />
+      <CardHeader
+        /* action={
+          <IconButton aria-label="settings">
+            <MoreVertIcon />
+          </IconButton>
+        } */
+        title={item.libele}
+        subheader={item.dateCreated}
+      />
 
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites" onClick={show}>
@@ -101,10 +86,10 @@ export default function CustomCard(props) {
     </Card>
   );
 }
-CustomCard.propTypes = {
+OuvrageCard.propTypes = {
   children: PropTypes.node,
   classes: PropTypes.string,
 };
-CustomCard.defaultProps = {
+OuvrageCard.defaultProps = {
   classes: "",
 };

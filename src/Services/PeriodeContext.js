@@ -1,75 +1,12 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const PeriodeContext = React.createContext();
 
 export function PeriodeProvider({ children }) {
-  const [historiqueBilletes, setHistoriqueBilletes] = React.useState([
-    {
-      _id: 1,
-      date: "1920...",
-      title: "Habib Bourguiba",
-      details:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit.  Consectetur tempora ab laudantium voluptatibus aut eos placeat laborum, quibusdam exercitationem labore.",
-    },
-    {
-      _id: 2,
-      date: "1956",
-      title: "7 Nouvembre",
-      details: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
-    },
-    {
-      _id: 3,
-      date: "2011",
-      title: "14 Janvier",
-      details:
-        "Consectetur tempora ab laudantium voluptatibus aut eos placeat laborum, quibusdam exercitationem labore.",
-    },
-  ]);
-  const [historiqueMonnaies, setHistoriqueMonnaies] = React.useState([
-    {
-      _id: 1,
-      date: "400 av .. 146 ap",
-      title: "Punique",
-      details:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit.  Consectetur tempora ab laudantium voluptatibus aut eos placeat laborum, quibusdam exercitationem labore.",
-    },
-    {
-      _id: 2,
-      date: "218 av .. 60-460 av",
-      title: "Numide",
-      details: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
-    },
-    {
-      _id: 3,
-      date: "149-146 av .. 476 ap",
-      title: "Romaine",
-      details:
-        "Consectetur tempora ab laudantium voluptatibus aut eos placeat laborum, quibusdam exercitationem labore.",
-    },
-    {
-      _id: 4,
-      date: "435 ap .. 533 ap",
-      title: "Vandale",
-      details:
-        "Consectetur tempora ab laudantium voluptatibus aut eos placeat laborum, quibusdam exercitationem labore.",
-    },
-    {
-      _id: 5,
-      date: "491 ap .. 641 ap",
-      title: "Byzantine",
-      details:
-        "Consectetur tempora ab laudantium voluptatibus aut eos placeat laborum, quibusdam exercitationem labore.",
-    },
-    {
-      _id: 6,
-      date: "670 ap/50H .. 1207 ap/603H",
-      title: "Arabo-musliman",
-      details:
-        "Consectetur tempora ab laudantium voluptatibus aut eos placeat laborum, quibusdam exercitationem labore.",
-    },
-  ]);
+  const [historiqueBilletes, setHistoriqueBilletes] = React.useState([]);
+  const [historiqueMonnaies, setHistoriqueMonnaies] = React.useState([]);
   const [periodes, setPeriodes] = React.useState([]);
   const [isLoading, setLoading] = React.useState(false);
 
@@ -84,8 +21,13 @@ export function PeriodeProvider({ children }) {
       .then((response) => {
         setLoading(false);
 
-        if (!response.data.error) {
+        if (response && !response.data.error) {
           setPeriodes((prevState) => [...prevState, response.data]);
+          if (response.data.piece === true) {
+            getMonnaiesPeriodes();
+          } else if (response.data.piece === false) {
+            getBilletesPeriodes();
+          }
         }
         //handle success
         console.log(response);
@@ -105,7 +47,12 @@ export function PeriodeProvider({ children }) {
         data: Json,
       });
       //handle success
-      if (!response.data.error) {
+      if (response && !response.data.error) {
+        if (response.data.piece === true) {
+          getMonnaiesPeriodes();
+        } else if (response.data.piece === false) {
+          getBilletesPeriodes();
+        }
         getPeriodes();
         navigate("../periodes");
       }
@@ -124,8 +71,15 @@ export function PeriodeProvider({ children }) {
       });
       setLoading(false);
       //handle success
-      if (!response.data.error) {
+      if (response && !response.data.error) {
         setPeriodes(periodes.filter((item) => item._id !== _id));
+
+        setHistoriqueMonnaies(
+          historiqueMonnaies.filter((item) => item._id !== _id)
+        );
+        setHistoriqueBilletes(
+          historiqueBilletes.filter((item) => item._id !== _id)
+        );
       }
       console.log(response);
     } catch (err) {
@@ -162,8 +116,14 @@ export function PeriodeProvider({ children }) {
       });
       //handle success
       setLoading(false);
-      if (!response.data.error) {
+      if (response && !response.data.error) {
         setPeriodes(response.data);
+        setHistoriqueMonnaies(
+          response.data.filter((item) => item.piece === true)
+        );
+        setHistoriqueBilletes(
+          response.data.filter((item) => item.piece === false)
+        );
       }
       console.log(response);
     } catch (err) {

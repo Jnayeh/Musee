@@ -9,29 +9,23 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { usePieceFormControl } from "./FormControl";
+import { useOuvrageFormControl } from "./FormControl";
 import ImageInput from "Components/ImageInput/ImageInput";
-import SwitchInput from "Components/SwitchInput/SwitchInput";
-import SelectInput from "Components/SelectInput/SelectInput";
-import { MenuItem } from "@mui/material";
 
 const theme = createTheme();
 
-export default function PieceForm(props) {
+export default function OuvrageForm(props) {
   const {
     handleFormSubmit,
     handleInputValue,
-    handleSwitch,
     handleImage,
     formIsValid,
     shownFrontImage,
-    shownBackImage,
     isLoading,
-    historiqueMonnaies,
     values,
     errors,
     id,
-  } = usePieceFormControl();
+  } = useOuvrageFormControl();
 
   const inputFieldValues = [
     {
@@ -48,6 +42,22 @@ export default function PieceForm(props) {
       multiline: true,
       rows: 5,
     },
+    {
+      name: "stock",
+      label: "Stock",
+      type: "number",
+      value: values.stock,
+      required: true,
+      sm: 6,
+    },
+    {
+      name: "prix",
+      label: "Prix",
+      type: "number",
+      value: values.prix,
+      required: true,
+      sm: 6,
+    },
   ];
   const inputImages = [
     {
@@ -55,12 +65,6 @@ export default function PieceForm(props) {
       label: "Front image",
       value: shownFrontImage,
       photoId: "front_photo",
-    },
-    {
-      name: "back_image",
-      label: "Back image",
-      value: shownBackImage,
-      photoId: "back_photo",
     },
   ];
 
@@ -91,7 +95,7 @@ export default function PieceForm(props) {
             variant="h4"
             sx={{ fontWeight: "bold", color: "#1E2F97" }}
           >
-            {id ? "Modifier Piece" : ""}
+            {id ? "Modifier Ouvrage" : ""}
           </Typography>
           <Box
             component="form"
@@ -110,6 +114,7 @@ export default function PieceForm(props) {
                   >
                     <TextField
                       fullWidth
+                      type={inputFieldValue.type ?? "text"}
                       required={inputFieldValue.required ?? false}
                       onBlur={handleInputValue}
                       onChange={handleInputValue}
@@ -128,6 +133,7 @@ export default function PieceForm(props) {
                   </Grid>
                 );
               })}
+
               {inputImages.map((inputImage, index) => {
                 return (
                   <Grid key={index} item xs={12}>
@@ -141,72 +147,6 @@ export default function PieceForm(props) {
                   </Grid>
                 );
               })}
-
-              <Grid item xs={12}>
-                <SwitchInput
-                  label="A vendre"
-                  checked={values.a_vendre}
-                  handleChange={handleSwitch}
-                  name="a_vendre"
-                />
-              </Grid>
-
-              {values.a_vendre && (
-                <>
-                  <Grid item xs={12}>
-                    <TextField
-                      type="number"
-                      fullWidth
-                      required={Boolean(values.a_vendre)}
-                      onBlur={handleInputValue}
-                      onChange={handleInputValue}
-                      value={values.stock}
-                      name="stock"
-                      label="Stock"
-                      autoComplete="none"
-                      {...(errors["stock"] && {
-                        error: true,
-                        helperText: errors["stock"],
-                      })}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      type="number"
-                      fullWidth
-                      required={Boolean(values.a_vendre)}
-                      onBlur={handleInputValue}
-                      onChange={handleInputValue}
-                      value={values.prix}
-                      name="prix"
-                      label="Prix"
-                      autoComplete="none"
-                      {...(errors["prix"] && {
-                        error: true,
-                        helperText: errors["prix"],
-                      })}
-                    />
-                  </Grid>
-                </>
-              )}
-
-              <Grid item xs={12}>
-                <SelectInput
-                  handleChange={handleInputValue}
-                  value={values.periode}
-                  label="Periode"
-                  name="periode"
-                  errors={errors}
-                >
-                  {historiqueMonnaies.map((listItem, index) => {
-                    return (
-                      <MenuItem key={index} value={listItem._id}>
-                        {listItem.title}
-                      </MenuItem>
-                    );
-                  })}
-                </SelectInput>
-              </Grid>
             </Grid>
 
             <LoadingButton
@@ -234,6 +174,6 @@ export default function PieceForm(props) {
     </ThemeProvider>
   );
 }
-PieceForm.defaultProps = {
+OuvrageForm.defaultProps = {
   marginTop: "50px",
 };

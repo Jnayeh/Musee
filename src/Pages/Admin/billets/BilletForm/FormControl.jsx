@@ -11,6 +11,7 @@ export const useBilletFormControl = () => {
     libele: "",
     description: "",
     stock: 0,
+    prix: 0,
     a_vendre: false,
     periode: "",
   });
@@ -66,6 +67,12 @@ export const useBilletFormControl = () => {
         temp.stock = "Number must be positive";
       }
     }
+    if ("prix" in fieldValues) {
+      temp.prix = fieldValues.prix ? "" : requiredError;
+      if (fieldValues.prix < 1) {
+        temp.prix = "Number must be above 0";
+      }
+    }
 
     if ("periode" in fieldValues)
       temp.periode =
@@ -94,7 +101,6 @@ export const useBilletFormControl = () => {
       setValues({
         ...values,
         [name]: checked,
-        ["stock"]: 0,
       });
     } else {
       setValues({
@@ -153,6 +159,7 @@ export const useBilletFormControl = () => {
       fieldValues.description &&
       fieldValues.periode &&
       fieldValues.periode !== "" &&
+      (fieldValues.a_vendre ? fieldValues.prix > 0 : true) &&
       Object.values(errors).every((x) => x === "");
 
     return isValid;

@@ -25,7 +25,7 @@ export function AuthProvider({ children }) {
         //handle success
         setLoading(false);
 
-        if (!res.data.error) {
+        if (res && !res.data.error) {
           let t = res.data.token;
           localStorage.setItem("token", t);
           Cookies.set("token", t);
@@ -42,7 +42,7 @@ export function AuthProvider({ children }) {
       .catch((err) => {
         //handle error
         setLoading(false);
-        console.log(err.json());
+        console.log(err);
         //console.log(err.response.data.error);
       });
   };
