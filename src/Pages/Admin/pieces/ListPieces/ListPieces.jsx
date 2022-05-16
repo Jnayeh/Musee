@@ -94,7 +94,9 @@ export default function ListPieces() {
                     <SwitchInput checked={row.a_vendre} disabled={true} />
                   </TableCell>
                   <TableCell align="center">{row.stock}</TableCell>
-                  <TableCell align="center">{row.date_creation}</TableCell>
+                  <TableCell align="center">
+                    {row.date_creation.substring(0, 10)}
+                  </TableCell>
                   <TableCell align="right">{row.periode}</TableCell>
                   <TableCell align="center">
                     <Stack direction="row" spacing={1} alignItems="center">

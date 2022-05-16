@@ -8,14 +8,14 @@
 }
 .footer > .body {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 30 px;
   padding: 15px;
 }
 .footer .body iframe {
   border-radius: 10px;
   border: 0;
   min-width: 240px;
-
 }
 .footer > .stamp {
   text-align: center;

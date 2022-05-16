@@ -1,15 +1,13 @@
 import React from "react";
-import {
-  AddShoppingCart,
-  LoginRounded,
-  LogoutRounded,
-  PersonAddAltRounded,
-} from "@mui/icons-material";
+import PersonAddAltRounded from "@mui/icons-material/PersonAddAltRounded";
+import LogoutRounded from "@mui/icons-material/LogoutRounded";
+import LoginRounded from "@mui/icons-material/LoginRounded";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useNavigate } from "react-router-dom";
 import { IconButton } from "@mui/material";
 import "./Menu.css";
 import AuthContext from "Services/AuthContext";
-function UserNav({ id, children }) {
+function UserNav({ id, toggle, children }) {
   const navigate = useNavigate();
 
   const { user, logOut } = React.useContext(AuthContext);
@@ -18,10 +16,11 @@ function UserNav({ id, children }) {
       {user ? (
         <>
           <IconButton
+            onClick={toggle}
             style={{ height: "46px", width: "46px", margin: "auto" }}
             aria-label="Panier"
           >
-            <AddShoppingCart />
+            <ShoppingCartIcon />
           </IconButton>
           <button
             className="auth-btn login-btn"

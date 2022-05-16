@@ -97,6 +97,7 @@ function PagesOutlet() {
   const { getPeriodes } = React.useContext(PeriodeContext);
   React.useEffect(() => {
     getPeriodes();
+    return () => {};
   }, []);
   return <Outlet />;
 }
@@ -104,7 +105,7 @@ function PagesOutlet() {
 const mdTheme = createTheme();
 
 export default function DashboardLayout() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   const navigate = useNavigate();
 
   const toggleDrawer = () => {

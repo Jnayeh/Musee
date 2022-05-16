@@ -28,10 +28,10 @@ export function UserProvider({ children }) {
       })
       .catch((err) => {
         //handle error
-        console.log(token);
         //console.log(err.response.data.error);
       });
   };
+
   const updateUser = async (FormData, _id) => {
     try {
       const response = await axios({
@@ -43,13 +43,14 @@ export function UserProvider({ children }) {
       //handle success
       if (!response.data.error) {
         getUsers();
-        navigate("../users");
+        navigate("../utilisateurs");
       }
     } catch (err) {
       //handle error
       console.log(err);
     }
   };
+
   const changePassword = async (passwordData, _id) => {
     try {
       const response = await axios({
@@ -60,13 +61,14 @@ export function UserProvider({ children }) {
       //handle success
       if (!response.data.error) {
         getUsers();
-        navigate("../users");
+        navigate("../utilisateurs");
       }
     } catch (err) {
       //handle error
       console.log(err);
     }
   };
+
   const removeUser = async (_id) => {
     setLoading(true);
     try {

@@ -39,13 +39,7 @@ function ItemSlider(props) {
       }}
       className="hover-effect"
     >
-      {props.items.map((item) => {
-        return (
-          <SplideSlide key={item._id}>
-            <CustomCard item={item} classes="CustomCard" />
-          </SplideSlide>
-        );
-      })}
+      {props.children}
     </Splide>
   );
 }

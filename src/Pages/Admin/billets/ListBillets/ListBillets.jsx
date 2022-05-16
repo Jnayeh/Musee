@@ -71,6 +71,7 @@ export default function ListBillets() {
               <TableCell align="center">Description</TableCell>
               <TableCell align="center">A vendre</TableCell>
               <TableCell align="center">Stock</TableCell>
+              <TableCell align="center">Prix</TableCell>
               <TableCell align="center">Date création</TableCell>
               <TableCell align="right">Période</TableCell>
               <TableCell align="center">Actions</TableCell>
@@ -93,7 +94,10 @@ export default function ListBillets() {
                     <SwitchInput checked={row.a_vendre} disabled={true} />
                   </TableCell>
                   <TableCell align="center">{row.stock}</TableCell>
-                  <TableCell align="center">{row.date_creation}</TableCell>
+                  <TableCell align="center">{row.prix}</TableCell>
+                  <TableCell align="center">
+                    {row.date_creation.substring(0, 10)}
+                  </TableCell>
                   <TableCell align="right">{row.periode}</TableCell>
                   <TableCell align="center">
                     <Stack direction="row" spacing={1} alignItems="center">

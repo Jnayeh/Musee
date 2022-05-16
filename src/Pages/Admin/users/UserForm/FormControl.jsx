@@ -1,7 +1,10 @@
-import { useContext, useState } from "react";
-import AuthContext from "Services/AuthContext";
+import { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import UserContext from "Services/UserContext";
 
 export const useFormControl = () => {
+  let { id } = useParams("id");
+
   // We'll update "values" as the form updates
   const [values, setValues] = useState({
     prenom: "",
@@ -9,15 +12,37 @@ export const useFormControl = () => {
     email: "",
     mot_de_passe: "",
     mot_de_passe_confirm: "",
+    active: true,
     num_tel: "",
   });
-  const { signUp } = useContext(AuthContext);
+
+  const [Image, setImage] = useState(null);
+  const [shownImage, setShownImage] = useState(null);
+  const { isLoading, addUser, updateUser, getUser } = useContext(UserContext);
+
+  //Error message for required fields
+  const requiredError = "This field is required.";
+
+  /* If the form is for updating a User
+    We get the User from backend and update it
+
+*/
+  useEffect(() => {
+    if (id) {
+      getUser(id).then((res) => {
+        setValues(res);
+        if (res.photo) {
+          setShownImage(process.env.REACT_APP_API_URL + "user/" + res.photo);
+        }
+        console.log("DATA: ", res);
+      });
+    }
+  }, []);
 
   // "errors" is used to check the form for errors
   const [errors, setErrors] = useState({});
 
-  //Error message for required fields
-  const requiredError = "This field is required.";
+  // this function will check if the form values are valid
 
   // this function will check if the form values are valid
   const validate = (fieldValues = values) => {
@@ -74,6 +99,27 @@ export const useFormControl = () => {
     validate({ [name]: value });
   };
 
+  // this function will handle the switch input
+  const handleSwitch = (e) => {
+    const { name, checked } = e.target;
+
+    setValues({
+      ...values,
+      [name]: checked,
+    });
+  };
+
+  // this function will handle the image input
+  const handleImage = (e) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+
+    reader.onload = () => {
+      setImage(e.target.files[0]);
+      setShownImage(reader.result);
+    };
+  };
+
   // this function will handle password confirmation
   const handlePasswordConfirmation = (e) => {
     const { name, value } = e.target;
@@ -98,25 +144,43 @@ export const useFormControl = () => {
   // this function will be triggered by the submit event
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    signUp(values);
+
+    const f = new FormData();
+    f.append("user", JSON.stringify(values));
+
+    f.append("photo", Image);
+
+    if (id) {
+      updateUser(f, id);
+    } else {
+      addUser(values);
+    }
   };
-  // this function will check if the form values and return a boolean value
+
+  // this function will check for the form values and return a boolean value
   const formIsValid = (fieldValues = values) => {
     const isValid =
       fieldValues.prenom &&
       fieldValues.email &&
       fieldValues.nom &&
-      fieldValues.mot_de_passe &&
-      fieldValues.mot_de_passe_confirm &&
+      (id ? true : fieldValues.mot_de_passe) &&
+      (id ? true : fieldValues.mot_de_passe_confirm) &&
       Object.values(errors).every((x) => x === "");
 
     return isValid;
   };
+
   return {
     handleInputValue,
     handleFormSubmit,
     formIsValid,
+    handleSwitch,
+    handleImage,
     handlePasswordConfirmation,
+    shownImage,
+    isLoading,
+    values,
     errors,
+    id,
   };
 };

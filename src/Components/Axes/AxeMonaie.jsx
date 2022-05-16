@@ -27,8 +27,6 @@ function AxeMonaie() {
         title={modalHistory.title}
       >
         <p>{modalHistory.details}</p>
-        <p>{modalHistory.details}</p>
-        <p>{modalHistory.details}</p>
       </CenteredModal>
 
       <h4 className="axh2">Historique du Piéce en Tunisie</h4>

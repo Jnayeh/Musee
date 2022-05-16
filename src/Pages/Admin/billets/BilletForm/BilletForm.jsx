@@ -13,7 +13,8 @@ import { useBilletFormControl } from "./FormControl";
 import ImageInput from "Components/ImageInput/ImageInput";
 import SwitchInput from "Components/SwitchInput/SwitchInput";
 import SelectInput from "Components/SelectInput/SelectInput";
-import { MenuItem } from "@mui/material";
+import InputAdornment from "@mui/material/InputAdornment";
+import MenuItem from "@mui/material/MenuItem";
 
 const theme = createTheme();
 
@@ -152,23 +153,47 @@ export default function BilletForm(props) {
               </Grid>
 
               {values.a_vendre && (
-                <Grid item xs={12}>
-                  <TextField
-                    type="number"
-                    fullWidth
-                    required={Boolean(values.a_vendre)}
-                    onBlur={handleInputValue}
-                    onChange={handleInputValue}
-                    value={values.stock}
-                    name="stock"
-                    label="Stock"
-                    autoComplete="none"
-                    {...(errors["stock"] && {
-                      error: true,
-                      helperText: errors["stock"],
-                    })}
-                  />
-                </Grid>
+                <>
+                  <Grid item xs={12}>
+                    <TextField
+                      type="number"
+                      fullWidth
+                      required={Boolean(values.a_vendre)}
+                      onBlur={handleInputValue}
+                      onChange={handleInputValue}
+                      value={values.stock}
+                      name="stock"
+                      label="Stock"
+                      autoComplete="none"
+                      {...(errors["stock"] && {
+                        error: true,
+                        helperText: errors["stock"],
+                      })}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      type="number"
+                      fullWidth
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="end">DT</InputAdornment>
+                        ),
+                      }}
+                      required={Boolean(values.a_vendre)}
+                      onBlur={handleInputValue}
+                      onChange={handleInputValue}
+                      value={values.prix}
+                      name="prix"
+                      label="Prix"
+                      autoComplete="none"
+                      {...(errors["prix"] && {
+                        error: true,
+                        helperText: errors["prix"],
+                      })}
+                    />
+                  </Grid>
+                </>
               )}
 
               <Grid item xs={12}>

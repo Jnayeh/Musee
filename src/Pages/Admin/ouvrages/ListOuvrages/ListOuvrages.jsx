@@ -14,43 +14,44 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-import PeriodeContext from "Services/PeriodeContext";
-import PeriodeForm from "../PeriodeForm/PeriodeForm";
+import OuvrageContext from "Services/OuvrageContext";
+import OuvrageForm from "../OuvrageForm/OuvrageForm";
 import CenteredModal from "Components/Modal/CenteredModal";
 import { useNavigate } from "react-router-dom";
 
-export default function ListPeriodes() {
-  const { isLoading, periodes, getPeriodes, removePeriode } =
-    React.useContext(PeriodeContext);
+export default function ListOuvrages() {
+  const { isLoading, ouvrages, getOuvrages, removeOuvrage } =
+    React.useContext(OuvrageContext);
 
   const [modalOpen, setModalOpen] = React.useState(false);
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    if (periodes.length === 0) {
-      getPeriodes();
+    if (ouvrages.length === 0) {
+      getOuvrages();
     }
   }, []);
 
   return (
     <>
       <CenteredModal
-        title="Ajout Periode"
+        title="Ajout Ouvrage"
         isOpen={modalOpen}
         onHide={() => setModalOpen(false)}
       >
-        <PeriodeForm marginTop="0px" />
+        <OuvrageForm marginTop="0px" />
       </CenteredModal>
 
       <h1
         style={{
           width: "100%",
           textAlign: "center",
+          textTransform: "uppercase",
           margin: "2rem",
           color: "#797ef6",
         }}
       >
-        PERIODES
+        OuvrageS
       </h1>
       <Button
         startIcon={<AddIcon />}
@@ -66,12 +67,11 @@ export default function ListPeriodes() {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Titre</TableCell>
-              <TableCell align="center">Détails</TableCell>
-              <TableCell align="center">Periode des ...</TableCell>
-              <TableCell align="center">Date/Periode</TableCell>
+              <TableCell>Libele</TableCell>
+              <TableCell align="center">Description</TableCell>
+              <TableCell align="center">Stock</TableCell>
+              <TableCell align="center">Prix</TableCell>
               <TableCell align="center">Date création</TableCell>
-              <TableCell align="right">Ordre</TableCell>
               <TableCell align="center">Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -79,23 +79,20 @@ export default function ListPeriodes() {
             {isLoading ? (
               <></>
             ) : (
-              periodes.map((row, index) => (
+              ouvrages.map((row, index) => (
                 <TableRow
                   key={index}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
-                    {row.title}
+                    {row.libele}
                   </TableCell>
-                  <TableCell align="center">{row.details}</TableCell>
-                  <TableCell align="center">
-                    {row.piece ? "pieces" : "billets"}
-                  </TableCell>
-                  <TableCell align="center">{row.date}</TableCell>
+                  <TableCell align="center">{row.description}</TableCell>
+                  <TableCell align="center">{row.stock}</TableCell>
+                  <TableCell align="center">{row.prix}</TableCell>
                   <TableCell align="center">
                     {row.date_creation.substring(0, 10)}
                   </TableCell>
-                  <TableCell align="right">{row.order}</TableCell>
                   <TableCell align="center">
                     <Stack direction="row" spacing={1} alignItems="center">
                       <IconButton
@@ -109,7 +106,7 @@ export default function ListPeriodes() {
                       <IconButton
                         aria-label="delete"
                         onClick={() => {
-                          removePeriode(row._id);
+                          removeOuvrage(row._id);
                         }}
                         color="error"
                       >

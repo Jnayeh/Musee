@@ -2,7 +2,7 @@ import axios from "axios";
 import { jwtInterceptor } from "Interceptors/JWTInterceptor";
 import React from "react";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const AdminAuthContext = React.createContext();
 
@@ -11,6 +11,7 @@ export function AdminAuthProvider({ children }) {
   const [token, setToken] = React.useState(null);
   const [isLoading, setLoading] = React.useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const logIn = (adminData) => {
     setLoading(true);
@@ -25,12 +26,14 @@ export function AdminAuthProvider({ children }) {
         setLoading(false);
         if (res) {
           //handle success
-          let t = res.data.token;
-          navigate("/admin", { replace: true });
-          localStorage.setItem("token", t);
-          Cookies.set("token", t);
-          setToken(t);
-          console.log("res: ", res);
+          if (!res.data.error) {
+            let t = res.data.token;
+            navigate("/admin", { replace: true });
+            localStorage.setItem("token", t);
+            Cookies.set("token", t);
+            setToken(t);
+            console.log("res: ", res);
+          }
         }
       })
       .catch((err) => {
@@ -40,24 +43,28 @@ export function AdminAuthProvider({ children }) {
       });
   };
   const getUser = () => {
-    setLoading(true);
     let DT = decodedToken();
     console.log(DT);
     if (DT.role === "administrateur") {
+      setLoading(true);
       axios({
         method: "get",
         url: process.env.REACT_APP_API_URL + "admins/" + DT.id,
       })
-        .then(function (response) {
+        .then((res) => {
           //handle success
           setLoading(false);
-          setUser(response);
+          if (!res.data.error) {
+            setUser(res);
+          }
         })
         .catch((err) => {
           //handle error
           setLoading(false);
           console.log(err);
         });
+    } else {
+      navigate("/");
     }
   };
 
@@ -79,17 +86,29 @@ export function AdminAuthProvider({ children }) {
       return { error: "no token to decode" };
     }
   };
+
   const logOut = () => {
     Cookies.remove("token");
     setToken(null);
     setUser(null);
-    console.log("Logged OUT");
+    navigate("/admin/sign-in");
   };
 
   // Add intercepors when the site opens
+  // Guard for Admin
   React.useEffect(() => {
     let t = Cookies.get("token");
     setToken(t);
+
+    /* setTimeout(() => {
+      console.log("Timed");
+      if (!t) {
+        navigate("/");
+      } else if (location.pathname === "/admin/sign-in") {
+        console.log("Sign In");
+      }
+    }, 10); */
+
     return () => {
       axios.interceptors.request.eject(jwtInterceptor);
     };
@@ -105,6 +124,7 @@ export function AdminAuthProvider({ children }) {
     if (token) {
       getUser();
     }
+    console.log(token);
     return () => {};
   }, [token]);
 

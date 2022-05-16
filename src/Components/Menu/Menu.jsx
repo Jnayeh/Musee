@@ -6,14 +6,24 @@ import "./Menu.css";
 import MenuButton from "./MenuButton";
 import MenuNav from "./MenuNav";
 import UserNav from "./UserNav";
+import PanierContext from "Services/PanierContext";
+import PanierItem from "Components/PanierItem/PanierItem";
 
 function Menu() {
   const [isOpen, setOpen] = React.useState(false);
+  const [panierOpen, setPanier] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const { panier, removeFromPanier, updateInPanier } =
+    React.useContext(PanierContext);
 
   const toggleButton = (event) => {
     setAnchorEl(event.currentTarget);
     setOpen(!isOpen);
+  };
+
+  const togglePanier = (event) => {
+    setAnchorEl(event.currentTarget);
+    setPanier(!panierOpen);
   };
   React.useEffect(() => {
     window.addEventListener("resize", () => {
@@ -35,7 +45,7 @@ function Menu() {
           </div>
 
           <MenuNav id="row-nav" />
-          <UserNav id="row-user">
+          <UserNav id="row-user" toggle={togglePanier}>
             <div className="place-holder hidden-item"></div>
           </UserNav>
         </div>
@@ -60,6 +70,58 @@ function Menu() {
         <div id="column-user">
           <UserNav />
         </div>
+      </Popover>
+      <Popover
+        id="panier-popover"
+        open={panierOpen}
+        anchorEl={anchorEl}
+        onClose={togglePanier}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        className="menu-popup panier scroller"
+      >
+        <h2 style={{ margin: "10px 20px" }}>Panier</h2>
+        {panier.ouvrages.map((ouvrage, index) => {
+          return (
+            <PanierItem
+              handleDelete={removeFromPanier}
+              handleUpdate={updateInPanier}
+              collection="ouvrages"
+              key={index}
+              item={ouvrage}
+            />
+          );
+        })}
+
+        {panier.billets.map((billet, index) => {
+          return (
+            <PanierItem
+              handleDelete={removeFromPanier}
+              handleUpdate={updateInPanier}
+              collection="billets"
+              key={index}
+              item={billet}
+            />
+          );
+        })}
+
+        {panier.pieces.map((piece, index) => {
+          return (
+            <PanierItem
+              handleDelete={removeFromPanier}
+              handleUpdate={updateInPanier}
+              collection="pieces"
+              key={index}
+              item={piece}
+            />
+          );
+        })}
       </Popover>
     </>
   );

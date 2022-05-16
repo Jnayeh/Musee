@@ -4,13 +4,11 @@ import Intro from "Components/Introduction/Intro";
 import Hassan from "Components/Hassan/Hassan";
 import { Slide } from "@mui/material";
 import { PeriodeProvider } from "Services/PeriodeContext";
-import LoadingContained from "Components/Loading/LoadingContained";
+//import LoadingContained from "Components/Loading/LoadingContained";
+import Collections from "Components/Collections/Collections";
+import AxeBillete from "Components/Axes/AxeBillete";
+import AxeMonaie from "Components/Axes/AxeMonaie";
 
-const AxeMonaie = React.lazy(() => import("Components/Axes/AxeMonaie"));
-const AxeBillete = React.lazy(() => import("Components/Axes/AxeBillete"));
-const Collections = React.lazy(() =>
-  import("Components/Collections/Collections")
-);
 function HomePage() {
   return (
     <Slide in direction="up" mountOnEnter unmountOnExit>
@@ -21,18 +19,12 @@ function HomePage() {
         </section>
         <PeriodeProvider>
           <section id="Monnaies">
-            <React.Suspense fallback={<LoadingContained />}>
-              <AxeMonaie />
-            </React.Suspense>
-            <React.Suspense fallback={<LoadingContained />}>
-              <AxeBillete />
-            </React.Suspense>
+            <AxeMonaie />
+            <AxeBillete />
           </section>
         </PeriodeProvider>
         <section id="Collections">
-          <React.Suspense fallback={<LoadingContained />}>
-            <Collections />
-          </React.Suspense>
+          <Collections />
         </section>
         <section id="Contact"></section>
       </div>

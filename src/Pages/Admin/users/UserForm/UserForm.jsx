@@ -9,58 +9,81 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { usePieceFormControl } from "./FormControl";
+import { useFormControl } from "./FormControl";
 import ImageInput from "Components/ImageInput/ImageInput";
 import SwitchInput from "Components/SwitchInput/SwitchInput";
-import SelectInput from "Components/SelectInput/SelectInput";
-import { MenuItem } from "@mui/material";
 
 const theme = createTheme();
 
-export default function PieceForm(props) {
+export default function UserForm(props) {
   const {
     handleFormSubmit,
     handleInputValue,
     handleSwitch,
     handleImage,
+    handlePasswordConfirmation,
     formIsValid,
-    shownFrontImage,
-    shownBackImage,
+    shownImage,
     isLoading,
-    historiqueMonnaies,
     values,
     errors,
     id,
-  } = usePieceFormControl();
+  } = useFormControl();
 
   const inputFieldValues = [
     {
-      name: "libele",
-      label: "Libele",
-      value: values.libele,
+      name: "prenom",
+      label: "Prénom",
+      value: values.prenom,
+      required: true,
+      autoFocus: true,
+      sm: 6,
+    },
+    {
+      name: "nom",
+      label: "Nom",
+      value: values.nom,
+      required: true,
+      sm: 6,
+    },
+    {
+      name: "email",
+      label: "Addresse Email ",
+      value: values.email,
       required: true,
     },
     {
-      name: "description",
-      label: "Description",
-      value: values.description,
+      name: "num_tel",
+      label: "Numéro telephone (optionnel)",
+      type: "number",
+      value: values.num_tel,
       required: true,
-      multiline: true,
-      rows: 5,
+    },
+    {
+      name: "mot_de_passe",
+      label: "Mot de passe",
+      type: "password",
+      value: values.mot_de_passe,
+      required: true,
+      sm: 6,
+    },
+    {
+      name: "mot_de_passe_confirm",
+      label: "Confirmation mot de passe",
+      type: "password",
+      value: values.mot_de_passe_confirm,
+      handleChange: handlePasswordConfirmation,
+      required: true,
+      sm: 6,
     },
   ];
+
   const inputImages = [
     {
-      name: "front_image",
-      label: "Front image",
-      value: shownFrontImage,
+      name: "photo",
+      label: "Photo de profile",
+      value: shownImage,
       photoId: "front_photo",
-    },
-    {
-      name: "back_image",
-      label: "Back image",
-      value: shownBackImage,
-      photoId: "back_photo",
     },
   ];
 
@@ -91,7 +114,7 @@ export default function PieceForm(props) {
             variant="h4"
             sx={{ fontWeight: "bold", color: "#1E2F97" }}
           >
-            {id ? "Modifier Piece" : ""}
+            {id ? "Modifier utilisateur" : ""}
           </Typography>
           <Box
             component="form"
@@ -110,9 +133,13 @@ export default function PieceForm(props) {
                   >
                     <TextField
                       fullWidth
+                      type={inputFieldValue.type ?? "text"}
                       required={inputFieldValue.required ?? false}
-                      onBlur={handleInputValue}
-                      onChange={handleInputValue}
+                      autoFocus={inputFieldValue.autoFocus ?? false}
+                      onBlur={inputFieldValue.handleChange ?? handleInputValue}
+                      onChange={
+                        inputFieldValue.handleChange ?? handleInputValue
+                      }
                       value={inputFieldValue.value ?? ""}
                       name={inputFieldValue.name}
                       label={inputFieldValue.label}
@@ -123,89 +150,34 @@ export default function PieceForm(props) {
                         error: true,
                         helperText: errors[inputFieldValue.name],
                       })}
-                      autoFocus={inputFieldValue.autoFocus ?? false}
                     />
                   </Grid>
                 );
               })}
-              {inputImages.map((inputImage, index) => {
-                return (
-                  <Grid key={index} item xs={12}>
-                    <ImageInput
-                      name={inputImage.name}
-                      value={inputImage.value}
-                      label={inputImage.label}
-                      classes="file-upload"
-                      handleChange={handleImage}
-                    />
-                  </Grid>
-                );
-              })}
+
+              {id
+                ? inputImages.map((inputImage, index) => {
+                    return (
+                      <Grid key={index} item xs={12}>
+                        <ImageInput
+                          name={inputImage.name}
+                          value={inputImage.value}
+                          label={inputImage.label}
+                          classes="file-upload"
+                          handleChange={handleImage}
+                        />
+                      </Grid>
+                    );
+                  })
+                : ""}
 
               <Grid item xs={12}>
                 <SwitchInput
-                  label="A vendre"
-                  checked={values.a_vendre}
+                  label="Active"
+                  checked={values.active}
                   handleChange={handleSwitch}
-                  name="a_vendre"
+                  name="active"
                 />
-              </Grid>
-
-              {values.a_vendre && (
-                <>
-                  <Grid item xs={12}>
-                    <TextField
-                      type="number"
-                      fullWidth
-                      required={Boolean(values.a_vendre)}
-                      onBlur={handleInputValue}
-                      onChange={handleInputValue}
-                      value={values.stock}
-                      name="stock"
-                      label="Stock"
-                      autoComplete="none"
-                      {...(errors["stock"] && {
-                        error: true,
-                        helperText: errors["stock"],
-                      })}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      type="number"
-                      fullWidth
-                      required={Boolean(values.a_vendre)}
-                      onBlur={handleInputValue}
-                      onChange={handleInputValue}
-                      value={values.prix}
-                      name="prix"
-                      label="Prix"
-                      autoComplete="none"
-                      {...(errors["prix"] && {
-                        error: true,
-                        helperText: errors["prix"],
-                      })}
-                    />
-                  </Grid>
-                </>
-              )}
-
-              <Grid item xs={12}>
-                <SelectInput
-                  handleChange={handleInputValue}
-                  value={values.periode}
-                  label="Periode"
-                  name="periode"
-                  errors={errors}
-                >
-                  {historiqueMonnaies.map((listItem, index) => {
-                    return (
-                      <MenuItem key={index} value={listItem._id}>
-                        {listItem.title}
-                      </MenuItem>
-                    );
-                  })}
-                </SelectInput>
               </Grid>
             </Grid>
 
@@ -234,6 +206,6 @@ export default function PieceForm(props) {
     </ThemeProvider>
   );
 }
-PieceForm.defaultProps = {
+UserForm.defaultProps = {
   marginTop: "50px",
 };

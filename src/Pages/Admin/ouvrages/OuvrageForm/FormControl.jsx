@@ -1,9 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import PieceContext from "Services/PieceContext";
-import PeriodeContext from "Services/PeriodeContext";
+import OuvrageContext from "Services/OuvrageContext";
 
-export const usePieceFormControl = () => {
+export const useOuvrageFormControl = () => {
   let { id } = useParams("id");
 
   // We'll update "values" as the form updates
@@ -12,35 +11,25 @@ export const usePieceFormControl = () => {
     description: "",
     stock: 0,
     prix: 0,
-    a_vendre: false,
-    periode: "",
   });
 
   const [frontImage, setFrontImage] = useState(null);
-  const [backImage, setBackImage] = useState(null);
   const [shownFrontImage, setShownFrontImage] = useState(null);
-  const [shownBackImage, setShownBackImage] = useState(null);
-  const { isLoading, addPiece, updatePiece, getPiece } =
-    useContext(PieceContext);
-  const { historiqueMonnaies } = useContext(PeriodeContext);
+  const { isLoading, addOuvrage, updateOuvrage, getOuvrage } =
+    useContext(OuvrageContext);
   const requiredError = "This field is required.";
 
-  /* If the form is for updating a Piece
-    We get the Piece from backend and update it
+  /* If the form is for updating a Ouvrage
+    We get the Ouvrage from backend and update it
 
 */
   useEffect(() => {
     if (id) {
-      getPiece(id).then((res) => {
+      getOuvrage(id).then((res) => {
         setValues(res);
-        if (res.back_image) {
-          setShownBackImage(
-            process.env.REACT_APP_API_URL + "piece_images/" + res.back_image
-          );
-        }
         if (res.front_image) {
           setShownFrontImage(
-            process.env.REACT_APP_API_URL + "piece_images/" + res.front_image
+            process.env.REACT_APP_API_URL + "ouvrage_images/" + res.front_image
           );
         }
         console.log("DATA: ", res);
@@ -67,16 +56,12 @@ export const usePieceFormControl = () => {
         temp.stock = "Number must be positive";
       }
     }
-
     if ("prix" in fieldValues) {
       temp.prix = fieldValues.prix ? "" : requiredError;
-      if (fieldValues.prix <= 0) {
+      if (fieldValues.prix < 1) {
         temp.prix = "Number must be above 0";
       }
     }
-    if ("periode" in fieldValues)
-      temp.periode =
-        fieldValues.periode && fieldValues.periode !== "" ? "" : requiredError;
 
     setErrors({
       ...temp,
@@ -93,36 +78,14 @@ export const usePieceFormControl = () => {
     validate({ [name]: value });
   };
 
-  // this function will handle the input
-  const handleSwitch = (e) => {
-    const { name, checked } = e.target;
-
-    setValues({
-      ...values,
-      [name]: checked,
-    });
-
-    let temp = { ...errors };
-    temp.stock = "";
-    setErrors({
-      ...temp,
-    });
-  };
-
   // this function will handle the image input
   const handleImage = (e) => {
     const reader = new FileReader();
-    const { id } = e.target;
     reader.readAsDataURL(e.target.files[0]);
 
     reader.onload = () => {
-      if (id === "front_image") {
-        setFrontImage(e.target.files[0]);
-        setShownFrontImage(reader.result);
-      } else if (id === "back_image") {
-        setBackImage(e.target.files[0]);
-        setShownBackImage(reader.result);
-      }
+      setFrontImage(e.target.files[0]);
+      setShownFrontImage(reader.result);
     };
   };
 
@@ -131,17 +94,14 @@ export const usePieceFormControl = () => {
     e.preventDefault();
 
     const f = new FormData();
-    f.append("piece", JSON.stringify(values));
-    if (frontImage) {
-      f.append("front_image", frontImage);
-    }
-    if (backImage) {
-      f.append("back_image", backImage);
-    }
+    f.append("ouvrage", JSON.stringify(values));
+
+    f.append("front_image", frontImage);
+
     if (id) {
-      updatePiece(f, id);
+      updateOuvrage(f, id);
     } else {
-      addPiece(f);
+      addOuvrage(f);
     }
   };
 
@@ -150,9 +110,7 @@ export const usePieceFormControl = () => {
     const isValid =
       fieldValues.libele &&
       fieldValues.description &&
-      fieldValues.periode &&
-      (fieldValues.a_vendre ? fieldValues.prix > 0 : true) &&
-      fieldValues.periode !== "" &&
+      fieldValues.prix > 0 &&
       Object.values(errors).every((x) => x === "");
 
     return isValid;
@@ -161,13 +119,10 @@ export const usePieceFormControl = () => {
   return {
     handleFormSubmit,
     handleInputValue,
-    handleSwitch,
     handleImage,
     formIsValid,
     shownFrontImage,
-    shownBackImage,
     isLoading,
-    historiqueMonnaies,
     values,
     errors,
     id,

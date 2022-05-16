@@ -1,12 +1,12 @@
 import React from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Menu from "Components/Menu/Menu";
 import Footer from "Components/Footer/Footer";
 import ErrorInterceptor from "Interceptors/ErrorInterceptor";
 import AuthContext from "Services/AuthContext";
+import { PanierProvider } from "Services/PanierContext";
 
 function UserApp() {
-  const navigate = useNavigate();
   const [bar, setBar] = React.useState(true);
   const { logOut } = React.useContext(AuthContext);
 
@@ -22,7 +22,7 @@ function UserApp() {
   }, [location]);
 
   return (
-    <>
+    <PanierProvider>
       <ErrorInterceptor logOut={logOut}>
         {/* Menu will be shown in all the routes if bar is true */}
         {bar && <Menu />}
@@ -33,7 +33,7 @@ function UserApp() {
           {bar && <Footer />}
         </div>
       </ErrorInterceptor>
-    </>
+    </PanierProvider>
   );
 }
 
