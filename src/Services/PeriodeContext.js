@@ -77,6 +77,14 @@ export function PeriodeProvider({ children }) {
 
   const periodeURL = process.env.REACT_APP_API_URL + "periodes/";
 
+  
+  React.useEffect(() => {
+    let piecePer = periodes.filter((item) => item.piece === true);
+    let billetPer = periodes.filter((item) => item.piece === false);
+    setHistoriqueMonnaies(piecePer);
+    setHistoriqueBilletes(billetPer);
+  }, [periodes]);
+
   const addPeriode = (Json) => {
     setLoading(true);
     axios
