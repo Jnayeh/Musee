@@ -4,35 +4,7 @@ const PanierContext = React.createContext();
 
 export function PanierProvider({ children }) {
   const [panier, setPanier] = React.useState({
-    billets: [
-      {
-        _id: 1,
-        libele: "libele",
-        front_image: "./assets/billete.jpg",
-        prix: 238,
-        quantite: 3,
-        stock: 15,
-        description: " Piece msadda men 9bal 3issa",
-      },
-      {
-        _id: 2,
-        libele: "libele",
-        front_image: "./assets/musée.jpg",
-        prix: 200,
-        quantite: 4,
-        stock: 15,
-        description: " Piece msadda men 9bal 3issa",
-      },
-      {
-        _id: 3,
-        libele: "libele",
-        front_image: "./assets/hassan.jpg",
-        prix: 300,
-        quantite: 3,
-        stock: 15,
-        description: " Piece msadda men 9bal 3issa",
-      },
-    ],
+    billets: [],
     pieces: [],
     ouvrages: [],
   });

@@ -17,10 +17,10 @@ export default function BoutiquePage() {
       _id: 1,
       libele: "libele",
       dateCreated: new Date().toLocaleString(),
-      front_image: "./assets/billete.jpg",
+      front_image: "./assets/ouvrage.jpg",
       prix: 10,
       stock: 15,
-      description: " Piece msadda men 9bal 3issa",
+      description: "  ",
     },
     {
       _id: 2,
@@ -48,33 +48,7 @@ export default function BoutiquePage() {
       stock: 15,
       description: " Piece msadda men 9bal 3issa",
     },
-    {
-      _id: 5,
-      libele: "libele",
-      dateCreated: new Date().toLocaleString(),
-      front_image: "./assets/piece.jpg",
-      prix: 600,
-      stock: 15,
-      description: " Piece msadda men 9bal 3issa",
-    },
-    {
-      _id: 6,
-      libele: "libele",
-      dateCreated: new Date().toLocaleString(),
-      front_image: "./assets/piece.jpg",
-      prix: 800,
-      stock: 15,
-      description: " Piece msadda men 9bal 3issa",
-    },
-    {
-      _id: 7,
-      libele: "libele",
-      dateCreated: new Date().toLocaleString(),
-      front_image: "./assets/piece.jpg",
-      prix: 260,
-      stock: 15,
-      description: " Piece msadda men 9bal 3issa",
-    },
+    
   ];
   let pieces = [
     {
@@ -104,41 +78,8 @@ export default function BoutiquePage() {
       stock: 15,
       description: " Piece msadda men 9bal 3issa",
     },
-    {
-      _id: 4,
-      libele: "libele",
-      dateCreated: new Date().toLocaleString(),
-      prix: 210,
-      stock: 15,
-      description: " Piece msadda men 9bal 3issa",
-    },
-    {
-      _id: 5,
-      libele: "libele",
-      dateCreated: new Date().toLocaleString(),
-      front_image: "./assets/piece.jpg",
-      prix: 600,
-      stock: 15,
-      description: " Piece msadda men 9bal 3issa",
-    },
-    {
-      _id: 6,
-      libele: "libele",
-      dateCreated: new Date().toLocaleString(),
-      front_image: "./assets/piece.jpg",
-      prix: 800,
-      stock: 15,
-      description: " Piece msadda men 9bal 3issa",
-    },
-    {
-      _id: 7,
-      libele: "libele",
-      dateCreated: new Date().toLocaleString(),
-      front_image: "./assets/piece.jpg",
-      prix: 260,
-      stock: 15,
-      description: " Piece msadda men 9bal 3issa",
-    },
+    
+    
   ];
   let billets = [
     {
@@ -176,33 +117,8 @@ export default function BoutiquePage() {
       stock: 15,
       description: " Piece msadda men 9bal 3issa",
     },
-    {
-      _id: 5,
-      libele: "libele",
-      dateCreated: new Date().toLocaleString(),
-      front_image: "./assets/piece.jpg",
-      prix: 600,
-      stock: 15,
-      description: " Piece msadda men 9bal 3issa",
-    },
-    {
-      _id: 6,
-      libele: "libele",
-      dateCreated: new Date().toLocaleString(),
-      front_image: "./assets/piece.jpg",
-      prix: 800,
-      stock: 15,
-      description: " Piece msadda men 9bal 3issa",
-    },
-    {
-      _id: 7,
-      libele: "libele",
-      dateCreated: new Date().toLocaleString(),
-      front_image: "./assets/piece.jpg",
-      prix: 260,
-      stock: 15,
-      description: " Piece msadda men 9bal 3issa",
-    },
+    
+    
   ];
   const { addToPanier } = React.useContext(PanierContext);
   const [modalShow, setModalShow] = React.useState(false);

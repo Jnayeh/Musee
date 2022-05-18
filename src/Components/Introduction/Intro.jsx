@@ -4,13 +4,14 @@ import "@splidejs/react-splide/css";
 import "./Intro.css";
 
 function Intro() {
+  
   return (
     <div id="intro" className="intro">
       <div className="intro-title">
         <h2> La Musée de Monnaie </h2>
-        <p> La Musée de Monnaie.</p>
-        <p>La Musée de Monnaie La Musée de Monnaie.</p>
-        <p>Every single day !</p>
+        <p> Bienvenue !</p>
+        <p> Musée de la Monnaie de Tunisie</p>
+        <p></p>
       </div>
 
       <Splide

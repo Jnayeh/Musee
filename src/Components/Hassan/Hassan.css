@@ -53,6 +53,11 @@ span {
   font-size: 18px;
   margin-bottom: 45px;
 }
+
+title{
+  font-family: 'PT Serif', serif;
+}
+
 /* Responsive layout - makes a one column-layout instead of two-column layout */
 @media (max-width: 1000px) {
   .main {
