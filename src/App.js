@@ -288,19 +288,21 @@ function App() {
         <Route path="*" element={<Navigate to="/404" replace />} />
       </Routes>
 
+      {visible && backButton && (
+        <div className="nav-back">
+          <Fab
+            variant="extended"
+            onClick={() => {
+              navigate(-1);
+            }}
+          >
+            <KeyboardArrowLeft /> Retour
+          </Fab>
+        </div>
+      )}
+
       {visible && (
-        <div className="navigations">
-          {backButton && (
-            <Fab
-              variant="extended"
-              onClick={() => {
-                navigate(-1);
-              }}
-            >
-              <KeyboardArrowLeft /> Retour
-            </Fab>
-          )}
-          <div></div>
+        <div className="nav-top">
           <Zoom in={top} unmountOnExit>
             <Fab size="medium" color="primary" onClick={scrollTop}>
               <UpIcon />

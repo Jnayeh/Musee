@@ -178,6 +178,44 @@ export function PeriodeProvider({ children }) {
     }
   };
 
+  const getPiecesParPeriode = async (_id) => {
+    setLoading(true);
+    return axios({
+      method: "get",
+      url: periodeURL + _id + "/pieces",
+    })
+      .then((response) => {
+        setLoading(false);
+        //handle success
+        if (!response.data.error) {
+          return response.data;
+        }
+      })
+      .catch((err) => {
+        //handle error
+        console.log(err);
+      });
+  };
+
+  const getBilletsParPeriode = async (_id) => {
+    setLoading(true);
+    return axios({
+      method: "get",
+      url: periodeURL + _id + "/billets",
+    })
+      .then((response) => {
+        setLoading(false);
+        //handle success
+        if (!response.data.error) {
+          return response.data;
+        }
+      })
+      .catch((err) => {
+        //handle error
+        console.log(err);
+      });
+  };
+
   return (
     <PeriodeContext.Provider
       value={{
@@ -192,6 +230,8 @@ export function PeriodeProvider({ children }) {
         getPeriode,
         getBilletesPeriodes,
         getMonnaiesPeriodes,
+        getBilletsParPeriode,
+        getPiecesParPeriode,
       }}
     >
       {children}

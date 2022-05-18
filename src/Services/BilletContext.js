@@ -11,7 +11,6 @@ export function BilletProvider({ children }) {
   const navigate = useNavigate();
 
   const billetURL = process.env.REACT_APP_API_URL + "billets/";
-  const billetPeriodeURL = process.env.REACT_APP_API_URL + "periodes/";
   const FormDataConfig = { "Content-Type": "multipart/form-data" };
 
   const addBillet = (FormData) => {
@@ -111,24 +110,26 @@ export function BilletProvider({ children }) {
     }
   };
 
-  const getBilletsParPeriode = async (_id) => {
+  const getBilletsAVendre = async () => {
     setLoading(true);
-    return axios({
-      method: "get",
-      url: billetPeriodeURL + _id + "/billets",
-    })
-      .then((response) => {
-        setLoading(false);
-        //handle success
-        if (!response.data.error) {
-          return response.data;
-        }
-      })
-      .catch((err) => {
-        //handle error
-        console.log(err);
+    try {
+      const response = await axios({
+        method: "get",
+        url: billetURL,
       });
+      //handle success
+      setLoading(false);
+      if (!response.data.error) {
+        setBillets(response.data.filter((p) => p.a_vendre === true));
+        return response;
+      }
+      console.log(response);
+    } catch (err) {
+      //handle error
+      console.log(err);
+    }
   };
+
   return (
     <BilletContext.Provider
       value={{
@@ -137,7 +138,7 @@ export function BilletProvider({ children }) {
         addBillet,
         updateBillet,
         removeBillet,
-        getBilletsParPeriode,
+        getBilletsAVendre,
         getBillets,
         getBillet,
       }}

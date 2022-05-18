@@ -10,7 +10,6 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import InfoIcon from "@mui/icons-material/Info";
 import PropTypes from "prop-types";
 import "./CustomCard.css";
 
@@ -39,7 +38,7 @@ export default function OuvrageCard(props) {
         <CardMedia
           component="img"
           height="194"
-          image={item.front_image}
+          image={item.url + item.front_image}
           alt={item.libele}
         />
       ) : (
@@ -58,7 +57,7 @@ export default function OuvrageCard(props) {
           </IconButton>
         } */
         title={item.libele}
-        subheader={item.dateCreated}
+        subheader={item.prix + " DT"}
       />
 
       <CardActions disableSpacing>

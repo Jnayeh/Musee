@@ -11,7 +11,6 @@ export function PieceProvider({ children }) {
   const navigate = useNavigate();
 
   const pieceURL = process.env.REACT_APP_API_URL + "pieces/";
-  const piecePeriodeURL = process.env.REACT_APP_API_URL + "periodes/";
 
   const FormDataConfig = { "Content-Type": "multipart/form-data" };
 
@@ -34,6 +33,7 @@ export function PieceProvider({ children }) {
         console.log("Hey", err);
       });
   };
+
   const updatePiece = async (FormData, _id) => {
     try {
       const response = await axios({
@@ -52,6 +52,7 @@ export function PieceProvider({ children }) {
       console.log(err);
     }
   };
+
   const removePiece = async (_id) => {
     setLoading(true);
     try {
@@ -90,6 +91,25 @@ export function PieceProvider({ children }) {
     }
   };
 
+  const getPiecesAVendre = async () => {
+    setLoading(true);
+    try {
+      const response = await axios({
+        method: "get",
+        url: pieceURL,
+      });
+      //handle success
+      setLoading(false);
+      if (!response.data.error) {
+        setPieces(response.data.filter((p) => p.a_vendre === true));
+      }
+      console.log(response);
+    } catch (err) {
+      //handle error
+      console.log(err);
+    }
+  };
+
   const getPiece = async (_id) => {
     setLoading(true);
     return axios({
@@ -108,24 +128,7 @@ export function PieceProvider({ children }) {
         console.log(err);
       });
   };
-  const getPiecesParPeriode = async (_id) => {
-    setLoading(true);
-    return axios({
-      method: "get",
-      url: piecePeriodeURL + _id + "/pieces",
-    })
-      .then((response) => {
-        setLoading(false);
-        //handle success
-        if (!response.data.error) {
-          return response.data;
-        }
-      })
-      .catch((err) => {
-        //handle error
-        console.log(err);
-      });
-  };
+
   return (
     <PieceContext.Provider
       value={{
@@ -134,7 +137,7 @@ export function PieceProvider({ children }) {
         addPiece,
         updatePiece,
         removePiece,
-        getPiecesParPeriode,
+        getPiecesAVendre,
         getPieces,
         getPiece,
       }}

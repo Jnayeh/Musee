@@ -14,15 +14,27 @@ export default function PanierItem(props) {
     handleUpdate(collection, item._id);
   };
   return (
-    <div className="panier-item flex gap">
+    <div className="panier-item flex space-between  gap">
       <div className="flex">
-        <img src={item.front_image} alt="img" className="img" />
-        <div className="flex-column">
+        <img
+          src={
+            item.front_image
+              ? item.url + item.front_image
+              : "./assets/placeholder.png"
+          }
+          alt="img"
+          className="img"
+        />
+        <div className="flex-column justify-center">
           <h3>{item.libele}</h3>
-          <p className="description-item">{item.description}</p>
+          <p className="description-item">
+            {item.description.length > 15
+              ? item.description.slice(0, 15) + "..."
+              : item.description}
+          </p>
         </div>
       </div>
-      <div className="flex-column gap">
+      <div className="flex-column justify-center gap">
         <div className="flex gap">
           <TextField
             type="number"
