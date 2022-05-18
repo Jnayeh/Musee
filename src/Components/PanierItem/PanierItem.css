@@ -17,19 +17,12 @@
   object-position: center;
 }
 .descripttion-item {
-  width: 80px;
+  width: 80px !important;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
 }
-.flex {
-  display: flex;
-}
-.flex-column {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
+
 .gap {
   gap: 20px;
 }

@@ -19,6 +19,7 @@ import BilletContext from "Services/BilletContext";
 import BilletForm from "../BilletForm/BilletForm";
 import CenteredModal from "Components/Modal/CenteredModal";
 import { useNavigate } from "react-router-dom";
+import PeriodeContext from "Services/PeriodeContext";
 
 export default function ListBillets() {
   const { isLoading, billets, getBillets, removeBillet } =
@@ -31,6 +32,12 @@ export default function ListBillets() {
     if (billets.length === 0) {
       getBillets();
     }
+  }, []);
+  const { getBilletesPeriodes } = React.useContext(PeriodeContext);
+
+  React.useEffect(() => {
+    getBilletesPeriodes();
+    return () => {};
   }, []);
 
   return (

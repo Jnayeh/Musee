@@ -10,7 +10,6 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import InfoIcon from "@mui/icons-material/Info";
 import PropTypes from "prop-types";
 import "./CustomCard.css";
 
@@ -31,7 +30,7 @@ export default function CustomCard(props) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  const { show, item, children, classes, ...other } = props;
+  const { show, item, children, classes, image_path, ...other } = props;
 
   return (
     <Card sx={{ maxWidth: 345 }} elevation={5} className={classes} {...other}>
@@ -42,7 +41,7 @@ export default function CustomCard(props) {
               <CardMedia
                 component="img"
                 height="194"
-                image={item.front_image}
+                image={item.url + item.front_image}
                 alt={item.libele}
               />
             ) : (
@@ -59,7 +58,7 @@ export default function CustomCard(props) {
               <CardMedia
                 component="img"
                 height="194"
-                image={item.back_image}
+                image={item.url + item.back_image}
                 alt={item.libele}
               />
             ) : (
@@ -74,7 +73,7 @@ export default function CustomCard(props) {
         </div>
       </div>
 
-      <CardHeader title={item.libele} subheader={item.prix + "DT"} />
+      <CardHeader title={item.libele} subheader={item.prix + " DT"} />
 
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites" onClick={show}>

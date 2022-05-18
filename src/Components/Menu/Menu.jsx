@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Link } from "react-router-dom";
-import { Popover } from "@mui/material";
+import { Button, Popover } from "@mui/material";
 import "./Menu.css";
 import MenuButton from "./MenuButton";
 import MenuNav from "./MenuNav";
@@ -86,42 +86,57 @@ function Menu() {
         }}
         className="menu-popup panier scroller"
       >
-        <h2 style={{ margin: "10px 20px" }}>Panier</h2>
-        {panier.ouvrages.map((ouvrage, index) => {
-          return (
-            <PanierItem
-              handleDelete={removeFromPanier}
-              handleUpdate={updateInPanier}
-              collection="ouvrages"
-              key={index}
-              item={ouvrage}
-            />
-          );
-        })}
+        <h2 className="panier-title">Panier</h2>
+        <div className="panier-body">
+          {panier.ouvrages.map((ouvrage, index) => {
+            return (
+              <PanierItem
+                handleDelete={removeFromPanier}
+                handleUpdate={updateInPanier}
+                collection="ouvrages"
+                key={index}
+                item={ouvrage}
+              />
+            );
+          })}
 
-        {panier.billets.map((billet, index) => {
-          return (
-            <PanierItem
-              handleDelete={removeFromPanier}
-              handleUpdate={updateInPanier}
-              collection="billets"
-              key={index}
-              item={billet}
-            />
-          );
-        })}
+          {panier.billets.map((billet, index) => {
+            return (
+              <PanierItem
+                handleDelete={removeFromPanier}
+                handleUpdate={updateInPanier}
+                collection="billets"
+                key={index}
+                item={billet}
+              />
+            );
+          })}
 
-        {panier.pieces.map((piece, index) => {
-          return (
-            <PanierItem
-              handleDelete={removeFromPanier}
-              handleUpdate={updateInPanier}
-              collection="pieces"
-              key={index}
-              item={piece}
-            />
-          );
-        })}
+          {panier.pieces.map((piece, index) => {
+            return (
+              <PanierItem
+                handleDelete={removeFromPanier}
+                handleUpdate={updateInPanier}
+                collection="pieces"
+                key={index}
+                item={piece}
+              />
+            );
+          })}
+          {panier.pieces.length === 0 &&
+          panier.ouvrages.length === 0 &&
+          panier.billets.length === 0 ? (
+            <h3 style={{ textAlign: "center", marginTop: "100px" }}>
+              Panier vide
+            </h3>
+          ) : (
+            <div className="flex justify-end">
+              <Button variant="contained" color="info">
+                Commander
+              </Button>
+            </div>
+          )}
+        </div>
       </Popover>
     </>
   );

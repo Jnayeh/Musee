@@ -176,8 +176,8 @@ export default function BilletForm(props) {
                       type="number"
                       fullWidth
                       InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="end">DT</InputAdornment>
+                        endAdornment: (
+                          <InputAdornment position="end"> DT</InputAdornment>
                         ),
                       }}
                       required={Boolean(values.a_vendre)}

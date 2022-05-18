@@ -1,6 +1,5 @@
 import React from "react";
-import { Splide, SplideSlide } from "@splidejs/react-splide";
-import CustomCard from "Components/Card/CustomCard";
+import { Splide } from "@splidejs/react-splide";
 
 function ItemSlider(props) {
   const [prodNumber, setProdNumber] = React.useState(props.more);

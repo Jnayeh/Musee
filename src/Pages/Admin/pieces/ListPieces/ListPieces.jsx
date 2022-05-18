@@ -19,6 +19,7 @@ import PieceContext from "Services/PieceContext";
 import PieceForm from "../PieceForm/PieceForm";
 import CenteredModal from "Components/Modal/CenteredModal";
 import { useNavigate } from "react-router-dom";
+import PeriodeContext from "Services/PeriodeContext";
 
 export default function ListPieces() {
   const { isLoading, pieces, getPieces, removePiece } =
@@ -31,6 +32,12 @@ export default function ListPieces() {
     if (pieces.length === 0) {
       getPieces();
     }
+  }, []);
+  const { getMonnaiesPeriodes } = React.useContext(PeriodeContext);
+
+  React.useEffect(() => {
+    getMonnaiesPeriodes();
+    return () => {};
   }, []);
 
   return (

@@ -75,14 +75,73 @@ body {
 .padding-top {
   padding-top: 80px;
 }
-.navigations {
+.nav-back {
   position: fixed;
   bottom: 0px;
   padding: 20px;
+}
+.nav-back .MuiFab-default,
+.nav-top .MuiFab-default {
+  z-index: 2 !important;
+}
+.nav-top {
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  padding: 20px;
+}
+
+.flex {
   display: flex;
-  width: 100vw;
+}
+.space-between {
   justify-content: space-between;
 }
-.navigations .MuiFab-default {
-  z-index: 2 !important;
+.justify-center {
+  justify-content: center;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+.flip-box {
+  background-color: rgba(255, 255, 255, 0);
+  width: 100%;
+  height: 194px;
+  perspective: 1000px;
+}
+.flip-width {
+  width: 250px;
+  margin: 0 auto;
+}
+
+.flip-box-inner {
+  position: relative;
+  text-align: center;
+  transition: transform 0.8s !important;
+  transform-style: preserve-3d;
+}
+
+.flip-box:hover .flip-box-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-box-front,
+.flip-box-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.flip-box-front {
+  background-color: rgba(187, 187, 187, 0);
+  color: black;
+}
+
+.flip-box-back {
+  background-color: rgba(85, 85, 85, 0);
+  color: white;
+  transform: rotateY(180deg);
 }

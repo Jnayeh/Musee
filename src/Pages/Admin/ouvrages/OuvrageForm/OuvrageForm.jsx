@@ -11,7 +11,7 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useOuvrageFormControl } from "./FormControl";
 import ImageInput from "Components/ImageInput/ImageInput";
-
+import InputAdornment from "@mui/material/InputAdornment";
 const theme = createTheme();
 
 export default function OuvrageForm(props) {
@@ -54,6 +54,9 @@ export default function OuvrageForm(props) {
       name: "prix",
       label: "Prix",
       type: "number",
+      InputProps: {
+        endAdornment: <InputAdornment position="end"> DT</InputAdornment>,
+      },
       value: values.prix,
       required: true,
       sm: 6,
@@ -115,6 +118,7 @@ export default function OuvrageForm(props) {
                     <TextField
                       fullWidth
                       type={inputFieldValue.type ?? "text"}
+                      InputProps={inputFieldValue.InputProps ?? {}}
                       required={inputFieldValue.required ?? false}
                       onBlur={handleInputValue}
                       onChange={handleInputValue}

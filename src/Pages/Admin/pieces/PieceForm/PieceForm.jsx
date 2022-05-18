@@ -13,6 +13,7 @@ import { usePieceFormControl } from "./FormControl";
 import ImageInput from "Components/ImageInput/ImageInput";
 import SwitchInput from "Components/SwitchInput/SwitchInput";
 import SelectInput from "Components/SelectInput/SelectInput";
+import InputAdornment from "@mui/material/InputAdornment";
 import { MenuItem } from "@mui/material";
 
 const theme = createTheme();
@@ -173,6 +174,11 @@ export default function PieceForm(props) {
                   <Grid item xs={12}>
                     <TextField
                       type="number"
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end"> DT</InputAdornment>
+                        ),
+                      }}
                       fullWidth
                       required={Boolean(values.a_vendre)}
                       onBlur={handleInputValue}
