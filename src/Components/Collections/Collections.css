@@ -34,6 +34,12 @@
   font-size: 1.5rem;
 }
 
+#btn-collection:hover {
+  transform: scale(1.2);
+}
+
+
+
 /*  box red */
 
 .flex-item-right {
@@ -64,6 +70,14 @@
   border: 15px solid #4e94c8;
   object-fit: scale-down;
 }
+
+.img_collection{
+  height: auto;
+  width: 25%;
+  max-width: 200px;
+}
+
+
 
 /* Responsive layout - makes a one column-layout instead of two-column layout */
 @media (max-width: 1000px) {

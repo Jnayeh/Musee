@@ -72,10 +72,10 @@ function BoutiquePieces(props) {
   );
 }
 function BoutiqueBillets(props) {
-  const { billets, getBillets } = React.useContext(BilletContext);
+  const { billets, getBilletsAVendre } = React.useContext(BilletContext);
   React.useEffect(() => {
     if (billets.length === 0) {
-      getBillets();
+        getBilletsAVendre();
     }
     return () => {};
   }, []);

@@ -8,9 +8,10 @@ function Intro() {
   return (
     <div id="intro" className="intro">
       <div className="intro-title">
-        <h2> La Musée de Monnaie </h2>
-        <p> Bienvenue !</p>
-        <p> Musée de la Monnaie de Tunisie</p>
+        <h2> Monnaie de Tunisie </h2>
+        <p> Bienvenue chez </p>
+        <p> Le Musée de la Monnaie de Tunisie</p>
+        <p> La musée numismatique qui situé en plein centre de Tunis.</p>
         <p></p>
       </div>
 

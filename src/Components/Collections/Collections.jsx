@@ -1,9 +1,44 @@
 import React from "react";
 import "./Collections.css";
+import CenteredModal from "Components/Modal/CenteredModal";
 
 function Collections() {
+  const [modalOpen, setModalOpen] = React.useState(false);
+  const openDialog = () => setModalOpen(true);
+  const closeDialog = () => setModalOpen(false);
+  const [collections, setCollections] = React.useState([]);
+  let pieces_images = ["./assets/col1.jpg", "./assets/col2.jpg", "./assets/col3.jpg", "./assets/col4.jpg"];
+  let billet_images =["./assets/billet1.jpg","./assets/billet2.jpg","./assets/billet3.jpg","./assets/billet4.jpg"];
+  let ouvrage_images =["./assets/ouvrage1.png","./assets/ouvrage2.png","./assets/ouvrage3.png"];
+  let medailles_images =["./assets/medaille1.jpg","./assets/medaille2.jpg","./assets/medaille3.jpg","./assets/medaille4.jpg",]
+
+    
+
+  const handleClose=() => {
+    console.log(modalOpen);
+    closeDialog();
+    setTimeout(() => { 
+    setCollections([]);
+    }, 500);
+  }
+
   return (
     <div>
+      <CenteredModal
+        isOpen={modalOpen}
+        onHide={handleClose}
+        title="Galerie"
+      >
+        <p>
+          <div>
+            {collections.map((col) => (
+              <img class="img_collection" src={col} alt="placeholder" />
+            ))}
+          </div>
+        </p>
+      </CenteredModal>
+
+
       <h1 className="axh2">Collections</h1>
       <div className="flex-container">
         <div className="flex-item-left">
@@ -18,9 +53,19 @@ function Collections() {
           <br />
 
           <div className="justify-end">
-            <button className="botton botton-color" type="button">
-              Lire Plus
+            <button
+              id="btn-collection"
+              className="ease botton botton-color"
+              type="button"
+              onClick={() => {
+                openDialog()
+                setCollections(pieces_images)
+                
+              }}
+            >
+              Galerie
             </button>
+
           </div>
         </div>
         <div className="flex-item-right">
@@ -30,8 +75,9 @@ function Collections() {
         </div>
       </div>
 
-     
+
       <div className="flex-container">
+
         <div className="flex-item-left">
           <h2>Les billets</h2>
           <br />
@@ -43,8 +89,17 @@ function Collections() {
           </p>
           <br />
           <div className="justify-end">
-            <button className="botton botton-color" type="button">
-              Lire Plus
+            <button
+              id="btn-collection"
+              className="ease botton botton-color"
+              type="button"
+              onClick={() => {
+                openDialog()
+                setCollections(billet_images)
+                
+              }}
+            >
+             Galerie
             </button>
           </div>
         </div>
@@ -70,8 +125,17 @@ function Collections() {
           <br />
           <br />
           <div className="justify-end">
-            <button className="botton botton-color" type="button">
-              Lire Plus
+            <button
+              id="btn-collection"
+              className="ease botton botton-color"
+              type="button"
+              onClick={() => {
+                openDialog()
+                setCollections(ouvrage_images)
+                
+              }}
+            >
+              Galerie
             </button>
           </div>
         </div>
@@ -87,7 +151,7 @@ function Collections() {
 
       <div className="flex-container">
         <div className="flex-item-left">
-          <h2>Les médailles</h2>
+          <h2>Les médailles et les pièces commémoratives</h2>
           <br />
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
@@ -104,9 +168,19 @@ function Collections() {
           <br />
           <br />
           <div className="justify-end">
-            <button className="botton botton-color" type="button">
-              Lire Plus
+            <button
+              id="btn-collection"
+              className="ease botton botton-color"
+              type="button"
+              onClick={() => {
+                openDialog()
+                setCollections(medailles_images)
+                
+              }}
+            >
+              Galerie
             </button>
+
           </div>
         </div>
         <div className="flex-item-right">

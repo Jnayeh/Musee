@@ -28,7 +28,7 @@ function Hassan() {
         <div className="ease main">
           <img src="./assets/hassan.jpg" alt="hassan" />
           <div className="ease about-text">
-            <h1>Hassan Abed Waheb</h1>
+            <h1>Hassan Hosny Abed Waheb</h1>
             <h5>
               Collecteur de <span>Monnaie</span>
             </h5>
