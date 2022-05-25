@@ -4,13 +4,15 @@ import "@splidejs/react-splide/css";
 import "./Intro.css";
 
 function Intro() {
+  
   return (
     <div id="intro" className="intro">
       <div className="intro-title">
-        <h2> La Musée de Monnaie </h2>
-        <p> La Musée de Monnaie.</p>
-        <p>La Musée de Monnaie La Musée de Monnaie.</p>
-        <p>Every single day !</p>
+        <h2> Monnaie de Tunisie </h2>
+        <p> Bienvenue chez </p>
+        <p> Le Musée de la Monnaie de Tunisie</p>
+        <p> La musée numismatique qui situé en plein centre de Tunis.</p>
+        <p></p>
       </div>
 
       <Splide
