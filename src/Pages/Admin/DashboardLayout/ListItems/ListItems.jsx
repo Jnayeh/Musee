@@ -67,18 +67,13 @@ const mainList = [
 let secondList = [
   {
     icon: <ShoppingCartIcon />,
-    label: "Orders",
-    ref: "orders",
+    label: "Commandes",
+    ref: "commandes",
   },
   {
     icon: <BarChartIcon />,
     label: "Reports",
     ref: "reports",
-  },
-  {
-    icon: <LayersIcon />,
-    label: "Integrations",
-    ref: "integrations",
   },
 ];
 export function MainListItems() {

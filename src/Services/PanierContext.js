@@ -3,6 +3,7 @@ import React from "react";
 const PanierContext = React.createContext();
 
 export function PanierProvider({ children }) {
+  const [total, setTotal] = React.useState(0);
   const [panier, setPanier] = React.useState({
     billets: [],
     pieces: [],
@@ -64,6 +65,22 @@ export function PanierProvider({ children }) {
     }
   };
 
+  React.useEffect(() => {
+    let pTotal = 0;
+    panier.ouvrages.forEach((ouvrage) => {
+      pTotal += Number(ouvrage.prix * ouvrage.quantite);
+    });
+
+    panier.billets.forEach((billet) => {
+      pTotal += Number(billet.prix * billet.quantite);
+    });
+
+    panier.pieces.forEach((piece) => {
+      pTotal += Number(piece.prix * piece.quantite);
+    });
+    setTotal(pTotal);
+  }, [panier]);
+
   const updateInPanier = (collection, item) => {
     switch (collection) {
       case "billets":
@@ -124,6 +141,7 @@ export function PanierProvider({ children }) {
     <PanierContext.Provider
       value={{
         panier,
+        total,
         addToPanier,
         updateInPanier,
         removeFromPanier,

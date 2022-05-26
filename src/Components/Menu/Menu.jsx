@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Popover } from "@mui/material";
 import "./Menu.css";
 import MenuButton from "./MenuButton";
@@ -13,8 +13,10 @@ function Menu() {
   const [isOpen, setOpen] = React.useState(false);
   const [panierOpen, setPanier] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const { panier, removeFromPanier, updateInPanier } =
+  const { panier, total, removeFromPanier, updateInPanier } =
     React.useContext(PanierContext);
+
+  const navigate = useNavigate();
 
   const toggleButton = (event) => {
     setAnchorEl(event.currentTarget);
@@ -126,12 +128,19 @@ function Menu() {
           {panier.pieces.length === 0 &&
           panier.ouvrages.length === 0 &&
           panier.billets.length === 0 ? (
-            <h3 style={{ textAlign: "center", marginTop: "100px" }}>
+            <h3 style={{ textAlign: "center", marginTop: "50px" }}>
               Panier vide
             </h3>
           ) : (
-            <div className="flex justify-end">
-              <Button variant="contained" color="info">
+            <div className="flex justify-between">
+              <strong style={{ margin: "auto" }}>Total: {total} DT</strong>
+              <Button
+                variant="contained"
+                color="info"
+                onClick={() => {
+                  navigate("/commander");
+                }}
+              >
                 Commander
               </Button>
             </div>

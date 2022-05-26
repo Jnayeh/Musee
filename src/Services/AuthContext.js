@@ -87,7 +87,7 @@ export function AuthProvider({ children }) {
         .then((response) => {
           //handle success
           if (!response.data.error) {
-            setUser(response);
+            setUser(response.data);
           }
         })
         .catch((err) => {

@@ -16,6 +16,7 @@ import smoothscroll from "smoothscroll-polyfill";
 
 import { AuthProvider } from "Services/AuthContext";
 import { AdminAuthProvider } from "Services/AdminAuthContext";
+import { CommandProvider } from "Services/CommandContext";
 
 import LoadingFull from "Components/Loading/LoadingFull";
 import LoadingContained from "Components/Loading/LoadingContained";
@@ -36,8 +37,9 @@ import OuvragePages from "Pages/Admin/ouvrages/OuvragePages";
 import BilletPages from "Pages/Admin/billets/BilletPages";
 import PiecePages from "Pages/Admin/pieces/PiecePages";
 import UserPages from "Pages/Admin/users/UserPages";
-import ListUsers from "Pages/Admin/users/ListUsers/ListUsers";
-import UserForm from "Pages/Admin/users/UserForm/UserForm";
+import Checkout from "Pages/User/CheckOut/Checkout";
+import ListCommands from "Pages/Admin/commandes/ListCommands/ListCommands";
+import CommandPages from "Pages/Admin/commandes/CommandPages";
 
 const Dashboard = React.lazy(() => import("Pages/Admin/Dashboard/Dashboard"));
 
@@ -71,6 +73,14 @@ const ListOuvrages = React.lazy(() =>
 );
 const OuvrageForm = React.lazy(() =>
   import("Pages/Admin/ouvrages/OuvrageForm/OuvrageForm")
+);
+
+/* Ouvrages Lazy Loaded */
+const ListUsers = React.lazy(() =>
+  import("Pages/Admin/users/ListUsers/ListUsers")
+);
+const UserForm = React.lazy(() =>
+  import("Pages/Admin/users/UserForm/UserForm")
 );
 
 const BoutiquePage = React.lazy(() =>
@@ -162,6 +172,14 @@ function App() {
               </React.Suspense>
             }
           />
+          <Route
+            path="commander"
+            element={
+              <CommandProvider>
+                <Checkout />
+              </CommandProvider>
+            }
+          />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/sign-in" element={<SignIn />} />
         </Route>
@@ -206,6 +224,55 @@ function App() {
               />
             </Route>
 
+            <Route path="billets" element={<BilletPages />}>
+              <Route
+                index
+                element={
+                  <React.Suspense fallback={<LoadingContained />}>
+                    <ListBillets />
+                  </React.Suspense>
+                }
+              />
+              <Route
+                path=":id"
+                element={
+                  <React.Suspense fallback={<LoadingContained />}>
+                    <BilletForm />
+                  </React.Suspense>
+                }
+              />
+            </Route>
+
+            <Route path="commandes" element={<CommandPages />}>
+              <Route
+                index
+                element={
+                  <React.Suspense fallback={<LoadingContained />}>
+                    <ListCommands />
+                  </React.Suspense>
+                }
+              />
+            </Route>
+
+            <Route path="ouvrages" element={<OuvragePages />}>
+              <Route
+                index
+                element={
+                  <React.Suspense fallback={<LoadingContained />}>
+                    <ListOuvrages />
+                  </React.Suspense>
+                }
+              />
+              <Route
+                path=":id"
+                element={
+                  <React.Suspense fallback={<LoadingContained />}>
+                    <OuvrageForm />
+                  </React.Suspense>
+                }
+              />
+            </Route>
+
             <Route path="periodes" element={<PeriodePages />}>
               <Route
                 index
@@ -239,44 +306,6 @@ function App() {
                 element={
                   <React.Suspense fallback={<LoadingContained />}>
                     <PieceForm />
-                  </React.Suspense>
-                }
-              />
-            </Route>
-
-            <Route path="billets" element={<BilletPages />}>
-              <Route
-                index
-                element={
-                  <React.Suspense fallback={<LoadingContained />}>
-                    <ListBillets />
-                  </React.Suspense>
-                }
-              />
-              <Route
-                path=":id"
-                element={
-                  <React.Suspense fallback={<LoadingContained />}>
-                    <BilletForm />
-                  </React.Suspense>
-                }
-              />
-            </Route>
-
-            <Route path="ouvrages" element={<OuvragePages />}>
-              <Route
-                index
-                element={
-                  <React.Suspense fallback={<LoadingContained />}>
-                    <ListOuvrages />
-                  </React.Suspense>
-                }
-              />
-              <Route
-                path=":id"
-                element={
-                  <React.Suspense fallback={<LoadingContained />}>
-                    <OuvrageForm />
                   </React.Suspense>
                 }
               />

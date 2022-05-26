@@ -2,11 +2,11 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'PT Serif', serif;
+  font-family: "PT Serif", serif;
 }
 body {
   margin: 0;
-  font-family: 'PT Serif', serif;
+  font-family: "PT Serif", serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-y: overlay;
@@ -142,4 +142,9 @@ body {
   background-color: rgba(85, 85, 85, 0);
   color: white;
   transform: rotateY(180deg);
+}
+
+.info-modal .MuiDialogContent-root {
+  min-width: 280px !important;
+  max-width: 80vw !important;
 }
